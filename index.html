@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anas ㆍ Webdesigner</title>
+<link rel="icon" type="image/png" href="SiteIcon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--black:#0a0a0a;--white:#ffffff;--gray:#f5f5f3;--gray2:#e8e8e4;--muted:#8a8a85;--accent:#2563eb;--accent-light:#eff4ff;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);line-height:1.6;font-size:16px;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  transition:box-shadow 0.3s,background 0.3s;
+}
+nav.scrolled{background:rgba(255,255,255,0.96);box-shadow:0 1px 0 rgba(0,0,0,0.06);}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 2.5rem;gap:1rem;}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;color:var(--black);text-decoration:none;letter-spacing:-0.5px;flex-shrink:0;display:flex;align-items:center;gap:8px;}
+.nav-links-center{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;}
+.nav-right{display:flex;align-items:center;gap:0.85rem;flex-shrink:0;}
+
+/* Links */
+.nav-cat{
+  position:relative;padding:0.45rem 0.9rem;font-size:13px;font-weight:500;
+  color:var(--muted);text-decoration:none;border-radius:8px;
+  transition:color 0.2s;white-space:nowrap;
+}
+.nav-cat::after{
+  content:'';position:absolute;bottom:2px;left:50%;right:50%;
+  height:2px;background:var(--black);border-radius:2px;
+  transition:left 0.25s cubic-bezier(0.4,0,0.2,1),right 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-cat:hover{color:var(--black);}
+.nav-cat:hover::after{left:12px;right:12px;}
+.nav-cat.active{color:var(--black);font-weight:600;}
+.nav-cat.active::after{left:12px;right:12px;background:var(--accent);}
+
+/* Lang */
+.lang-switcher{display:flex;gap:2px;background:var(--gray);border-radius:100px;padding:3px;}
+.lang-btn{background:none;border:none;font-size:11px;font-weight:700;padding:4px 9px;border-radius:100px;cursor:pointer;color:var(--muted);transition:all 0.2s;font-family:'Inter',sans-serif;letter-spacing:0.3px;}
+.lang-btn.active{background:var(--white);color:var(--black);box-shadow:0 1px 4px rgba(0,0,0,0.12);}
+
+/* CTA */
+.nav-cta{
+  background:var(--black);color:var(--white);
+  padding:0.5rem 1.15rem;border-radius:100px;
+  font-size:12.5px;font-weight:600;text-decoration:none;
+  white-space:nowrap;letter-spacing:0.1px;
+}
+.nav-bottom{display:none;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:9rem 2.5rem 4rem;max-width:900px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);color:var(--accent);font-size:12px;font-weight:600;padding:0.35rem 0.85rem;border-radius:100px;margin-bottom:2rem;letter-spacing:0.3px;}
+.dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+h1{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,6vw,4.8rem);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:1.5rem;}
+h1 span{color:var(--accent);}
+.hero-sub{font-size:1.05rem;color:var(--muted);max-width:520px;margin-bottom:2.5rem;line-height:1.7;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
+.btn-primary{background:var(--black);color:var(--white);padding:0.85rem 2rem;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity 0.2s,transform 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{opacity:0.8;transform:translateY(-1px);}
+.btn-secondary{color:var(--black);padding:0.85rem 2rem;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--gray2);transition:border-color 0.2s,transform 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-secondary:hover{border-color:var(--black);transform:translateY(-1px);}
+.price-tag{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);margin-top:1.5rem;}
+.price-tag strong{color:var(--black);font-size:1.1rem;}
+
+/* SECTIONS */
+section{max-width:900px;margin:0 auto;padding:5rem 2.5rem;}
+.section-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:1rem;}
+.divider{border:none;border-top:1px solid var(--gray2);max-width:900px;margin:0 auto;}
+
+/* SERVICES */
+.services-tilt-wrap{margin-top:3rem;perspective:1000px;max-width:600px;}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gray2);border:1px solid var(--gray2);border-radius:20px;overflow:hidden;transition:transform 0.12s ease-out;transform-style:preserve-3d;will-change:transform;}
+.service-card{background:var(--white);padding:2rem;transition:background 0.2s;}
+.service-card:hover{background:var(--gray);}
+.service-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;}
+.service-icon img{width:36px;height:36px;object-fit:contain;}
+.service-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem;}
+.service-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-top:3rem;}
+.step-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:var(--gray2);line-height:1;margin-bottom:0.75rem;}
+.step h3{font-size:1rem;font-weight:600;margin-bottom:0.4rem;}
+.step p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* EXAMPLES */
+/* CAROUSEL INFINI */
+.carousel-outer{overflow:hidden;margin-top:3rem;position:relative;}
+.carousel-outer::before,.carousel-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
+.carousel-outer::before{left:0;background:linear-gradient(to right,var(--white),transparent);}
+.carousel-outer::after{right:0;background:linear-gradient(to left,var(--white),transparent);}
+.carousel-track-inf{display:flex;gap:1.25rem;width:max-content;animation:scroll-inf 28s linear infinite;}
+.carousel-track-inf:hover{animation-play-state:paused;}
+@keyframes scroll-inf{0%{transform:translateX(0);}100%{transform:translateX(calc(-50% - 0.625rem));}}
+.example-card{border:1.5px solid var(--gray2);border-radius:16px;overflow:hidden;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;cursor:pointer;text-decoration:none;color:inherit;display:block;width:280px;flex-shrink:0;}
+.example-card:hover{transform:translateY(-4px);border-color:#c0c0bb;box-shadow:0 12px 32px rgba(0,0,0,0.08);}
+@media(max-width:768px){.example-card{width:240px;}}
+.example-preview{height:200px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.preview-portfolio{background:#0f0f0f;width:100%;height:100%;display:flex;flex-direction:column;padding:1.5rem;gap:0.5rem;}
+.p-nav{display:flex;justify-content:space-between;align-items:center;}
+.p-logo-dot{width:24px;height:24px;background:#6366f1;border-radius:6px;}
+.p-nav-dots{display:flex;gap:8px;}
+.p-nav-dot{width:28px;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;}
+.p-line{height:8px;background:#fff;border-radius:4px;margin-bottom:6px;}
+.p-line.short{width:50%;background:rgba(255,255,255,0.3);}
+.p-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:0.75rem;}
+.p-card-mini{background:#1e1e1e;border-radius:6px;height:48px;}
+.preview-landing{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:0.6rem;}
+.pl-badge{background:rgba(255,255,255,0.2);border-radius:100px;padding:3px 12px;width:80px;height:16px;}
+.pl-title{background:#fff;border-radius:4px;height:20px;width:160px;}
+.pl-sub{background:rgba(255,255,255,0.5);border-radius:3px;height:10px;width:120px;}
+.pl-btn{background:#fff;border-radius:100px;height:28px;width:90px;margin-top:4px;}
+.preview-shop{background:#fafaf8;width:100%;height:100%;display:flex;flex-direction:column;padding:1rem 1.25rem;gap:0.5rem;}
+.ps-top{display:flex;justify-content:space-between;align-items:center;}
+.ps-logo{width:50px;height:8px;background:#0a0a0a;border-radius:2px;}
+.ps-nav{display:flex;gap:6px;}
+.ps-nline{width:22px;height:6px;background:#ddd;border-radius:2px;}
+.ps-products{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:0.5rem;flex:1;}
+.ps-product{background:#fff;border:1px solid #eee;border-radius:8px;display:flex;flex-direction:column;overflow:hidden;}
+.ps-img{flex:1;min-height:50px;}
+.ps-info{padding:4px;}
+.ps-name{height:5px;background:#ddd;border-radius:2px;margin-bottom:3px;width:70%;}
+.ps-price{height:5px;background:#0a0a0a;border-radius:2px;width:40%;}
+.example-info{padding:1.25rem 1.5rem;border-top:1.5px solid var(--gray2);}
+.example-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:0.4rem;}
+.example-info h3{font-size:0.95rem;font-weight:600;margin-bottom:0.25rem;}
+.example-info p{font-size:12px;color:var(--muted);}
+.example-link{font-size:12px;font-weight:600;color:var(--accent);margin-top:0.75rem;display:inline-flex;align-items:center;gap:4px;}
+
+/* TARIFS */
+.currency-switcher{display:flex;gap:4px;background:var(--gray);border-radius:100px;padding:4px;width:fit-content;margin-bottom:2rem;}
+.curr-btn{background:none;border:none;font-size:13px;font-weight:600;padding:6px 16px;border-radius:100px;cursor:pointer;color:var(--muted);transition:all 0.2s;font-family:'Inter',sans-serif;}
+.curr-btn.active{background:var(--white);color:var(--black);box-shadow:0 1px 4px rgba(0,0,0,0.12);}
+.price-display{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;letter-spacing:-1px;line-height:1;}
+
+/* QUESTIONNAIRE */
+.q-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;}
+.q-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:1.5rem;}
+.q-fields{display:flex;flex-direction:column;gap:1.25rem;}
+.q-label{font-size:13px;font-weight:600;color:var(--black);display:block;margin-bottom:6px;}
+.q-input{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--gray2);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;background:var(--white);color:var(--black);transition:border-color 0.2s;resize:vertical;}
+.q-input:focus{outline:none;border-color:var(--black);}
+.q-nav{margin-top:2rem;display:flex;justify-content:space-between;align-items:center;}
+.btn-next{background:var(--black);color:var(--white);padding:0.75rem 1.75rem;border-radius:100px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:opacity 0.2s;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+.btn-next:not(:disabled):hover{opacity:0.75;}
+.btn-back{background:none;border:1.5px solid var(--gray2);color:var(--black);padding:0.75rem 1.5rem;border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;transition:border-color 0.2s;}
+.btn-back:hover{border-color:var(--black);}
+/* TYPE CARDS */
+.type-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;}
+@media(max-width:500px){.type-cards-grid{grid-template-columns:repeat(2,1fr);}}
+.type-card{
+  border:1.5px solid var(--gray2);border-radius:16px;padding:1.25rem 0.75rem 1rem;
+  cursor:pointer;text-align:center;position:relative;overflow:hidden;
+  transition:transform 0.3s cubic-bezier(0.34,1.3,0.64,1),border-color 0.2s,box-shadow 0.3s;
+  background:var(--white);
+}
+.type-card::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  transition:opacity 0.3s;border-radius:16px;
+}
+.type-card[data-color="purple"]::before{background:linear-gradient(135deg,#f5f3ff,#ede9fe);}
+.type-card[data-color="orange"]::before{background:linear-gradient(135deg,#fff7ed,#ffedd5);}
+.type-card[data-color="blue"]::before{background:linear-gradient(135deg,#eff6ff,#dbeafe);}
+.type-card[data-color="teal"]::before{background:linear-gradient(135deg,#f0fdfa,#ccfbf1);}
+.type-card[data-color="indigo"]::before{background:linear-gradient(135deg,#eef2ff,#e0e7ff);}
+.type-card[data-color="amber"]::before{background:linear-gradient(135deg,#fffbeb,#fef3c7);}
+.type-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 12px 32px rgba(0,0,0,0.1);}
+.type-card:hover::before{opacity:1;}
+.type-card:hover .tc-icon img{transform:scale(1.2) rotate(-8deg);}
+.type-card.selected{border-width:2px;box-shadow:0 8px 24px rgba(0,0,0,0.12);transform:translateY(-3px) scale(1.02);}
+.type-card.selected::before{opacity:1;}
+.type-card[data-color="purple"].selected{border-color:#7c3aed;}
+.type-card[data-color="orange"].selected{border-color:#ea580c;}
+.type-card[data-color="blue"].selected{border-color:#2563eb;}
+.type-card[data-color="teal"].selected{border-color:#0d9488;}
+.type-card[data-color="indigo"].selected{border-color:#4f46e5;}
+.type-card[data-color="amber"].selected{border-color:#d97706;}
+.type-card.selected::after{
+  content:'✓';position:absolute;top:8px;right:10px;
+  font-size:12px;font-weight:700;color:#16a34a;
+  animation:checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes checkPop{from{transform:scale(0) rotate(-20deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
+.tc-icon{width:56px;height:56px;margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
+.tc-icon img{width:44px;height:44px;object-fit:contain;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.tc-name{font-weight:700;font-size:13px;position:relative;z-index:1;}
+.tc-sub{font-size:11px;color:var(--muted);margin-top:3px;position:relative;z-index:1;}
+
+.style-tag{display:inline-block;padding:0.4rem 0.9rem;border:1.5px solid var(--gray2);border-radius:100px;font-size:13px;cursor:pointer;transition:all 0.15s;user-select:none;}
+.style-tag:hover{border-color:#bbb;}
+.style-tag.active{background:var(--black);color:var(--white);border-color:var(--black);}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--gray2);transition:background 0.2s;}
+.step-dot.done{background:var(--black);}
+.step-dot.active{background:var(--accent);}
+.img-preview{border-radius:10px;overflow:hidden;aspect-ratio:1;background:var(--gray);position:relative;}
+.img-preview img{width:100%;height:100%;object-fit:cover;}
+.img-preview .rm{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* CONTACT */
+#contact-section{background:var(--black);color:var(--white);border-radius:24px;padding:4rem;text-align:center;max-width:900px;margin:0 auto 5rem;}
+#contact-section .section-label{color:rgba(255,255,255,0.4);}
+#contact-section h2{color:var(--white);}
+#contact-section p{color:rgba(255,255,255,0.55);font-size:1rem;max-width:440px;margin:1rem auto 2.5rem;line-height:1.7;}
+.contact-options{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-white{background:var(--white);color:var(--black);padding:0.85rem 2rem;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-white:hover{opacity:0.85;}
+.btn-ghost-white{color:rgba(255,255,255,0.7);padding:0.85rem 2rem;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid rgba(255,255,255,0.2);transition:border-color 0.2s,color 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-ghost-white:hover{border-color:rgba(255,255,255,0.6);color:var(--white);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:200;align-items:center;justify-content:center;padding:1.5rem;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:20px;overflow:hidden;max-width:820px;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp 0.3s ease;position:relative;}
+@keyframes slideUp{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-close{background:rgba(255,255,255,0.95);border:none;cursor:pointer;font-size:18px;color:var(--muted);position:absolute;top:1rem;right:1rem;border-radius:100px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.modal-close:hover{color:var(--black);}
+.modal-site-preview{width:100%;border-bottom:1px solid var(--gray2);}
+.modal-info{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--gray2);}
+.modal-info-left{padding:2rem;border-right:1px solid var(--gray2);}
+.modal-info-right{padding:2rem;}
+.modal-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:0.6rem;}
+.modal-info-left h3{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:0.75rem;line-height:1.2;}
+.modal-info-left p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.modal-feat-list{display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+.modal-feat{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;}
+.modal-feat::before{content:'✓';color:#16a34a;font-weight:700;font-size:13px;flex-shrink:0;}
+.modal-info-right h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:1rem;}
+.modal-spec{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gray2);font-size:13px;}
+.modal-spec:last-child{border-bottom:none;}
+.modal-spec span:first-child{color:var(--muted);}
+.modal-spec span:last-child{font-weight:600;}
+@media(max-width:640px){.modal-info{grid-template-columns:1fr;}.modal-info-left{border-right:none;border-bottom:1px solid var(--gray2);padding:1.5rem;}.modal-info-right{padding:1.5rem;}}
+
+/* ===== INTRO SCREEN ===== */
+#intro{
+  position:fixed;inset:0;z-index:9999;
+  background:#ffffff;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#i-stage{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+/* Le "A." — masqué par défaut via clip */
+#i-text{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:clamp(5rem,13vw,9.5rem);
+  color:#0a0a0a;
+  letter-spacing:-4px;
+  line-height:1;
+  white-space:nowrap;
+  position:relative;
+  /* Le clip part de la droite : tout est caché */
+  clip-path:inset(0 100% 0 0);
+}
+/* Ligne verticale — positionnée absolument sur le bord gauche du texte */
+#i-line{
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:2.5px;
+  background:#0a0a0a;
+  border-radius:2px;
+  transform:scaleY(0);
+  transform-origin:center center;
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+/* Point de fin — visible seulement pour l'explosion */
+#i-boom{
+  position:fixed;
+  left:50%;top:50%;
+  width:14px;height:14px;
+  background:#0a0a0a;
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(0);
+  pointer-events:none;
+  opacity:0;
+}
+/* Style du "." pendant le zoom */
+#i-dot-char{
+  display:inline-block;
+  color:#0a0a0a;
+  /* taille agrandie pour que le zoom soit visible et couvre l'écran */
+  font-size:inherit;
+}
+#intro.done{display:none;}
+
+footer{text-align:center;padding:2rem;font-size:13px;color:var(--muted);border-top:1px solid var(--gray2);}
+
+@media(max-width:768px){
+  .nav-links-center{display:none;}
+  .nav-top{padding:0.9rem 1.25rem;}
+  section{padding:3rem 1.25rem;}
+  .hero{padding:7rem 1.25rem 3rem;}
+  #contact-section{padding:2.5rem 1.5rem;border-radius:16px;margin:0 1.25rem 3rem;}
+}
+
+/* ===== MOBILE SCROLL ANIMATIONS ===== */
+@media(max-width:768px){
+
+  /* Slide depuis la gauche */
+  @keyframes mob-slide-left{from{opacity:0;transform:translateX(-40px);}to{opacity:1;transform:translateX(0);}}
+  /* Slide depuis la droite */
+  @keyframes mob-slide-right{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+  /* Pop scale */
+  @keyframes mob-pop{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
+  /* Flip vertical */
+  @keyframes mob-flip{from{opacity:0;transform:rotateX(-20deg) translateY(20px);}to{opacity:1;transform:rotateX(0) translateY(0);}}
+  /* Slide up + fade */
+  @keyframes mob-rise{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+  /* Bounce in */
+  @keyframes mob-bounce{0%{opacity:0;transform:scale(0.7);}60%{transform:scale(1.08);}80%{transform:scale(0.96);}100%{opacity:1;transform:scale(1);}}
+
+  /* Classes déclenchées par l'observer JS */
+  .mob-anim-left.mob-visible{animation:mob-slide-left 0.55s cubic-bezier(0.4,0,0.2,1) both;}
+  .mob-anim-right.mob-visible{animation:mob-slide-right 0.55s cubic-bezier(0.4,0,0.2,1) both;}
+  .mob-anim-pop.mob-visible{animation:mob-pop 0.5s cubic-bezier(0.34,1.3,0.64,1) both;}
+  .mob-anim-flip.mob-visible{animation:mob-flip 0.55s ease both;}
+  .mob-anim-rise.mob-visible{animation:mob-rise 0.6s cubic-bezier(0.4,0,0.2,1) both;}
+  .mob-anim-bounce.mob-visible{animation:mob-bounce 0.6s cubic-bezier(0.34,1.56,0.64,1) both;}
+
+  /* Délais en cascade */
+  .mob-d1{animation-delay:0.05s;}.mob-d2{animation-delay:0.15s;}.mob-d3{animation-delay:0.25s;}.mob-d4{animation-delay:0.35s;}
+
+  /* Init : éléments invisibles avant animation */
+  .mob-anim-left,.mob-anim-right,.mob-anim-pop,.mob-anim-flip,.mob-anim-rise,.mob-anim-bounce{opacity:0;}
+}
+/* ===== ANIMATIONS GLOBALES ===== */
+/* Fade-in au scroll */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.65s cubic-bezier(0.4,0,0.2,1),transform 0.65s cubic-bezier(0.4,0,0.2,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.65s cubic-bezier(0.4,0,0.2,1),transform 0.65s cubic-bezier(0.4,0,0.2,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.65s cubic-bezier(0.4,0,0.2,1),transform 0.65s cubic-bezier(0.4,0,0.2,1);}
+.reveal-right.visible{opacity:1;transform:translateX(0);}
+.delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}.delay-4{transition-delay:0.4s;}
+
+/* Hero cursor */
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-cursor{animation:blink 0.9s infinite;font-weight:300;color:var(--accent);margin-left:2px;}
+@keyframes heroIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.hero-badge{animation:heroIn 0.6s ease both;}
+.hero h1{animation:heroIn 0.7s 0.05s ease both;}
+.hero-sub{animation:heroIn 0.7s 0.15s ease both;}
+.hero-actions{animation:heroIn 0.7s 0.25s ease both;}
+.price-tag{animation:heroIn 0.7s 0.35s ease both;}
+.stats-bar{animation:heroIn 0.7s 0.45s ease both;}
+
+/* Hero position */
+.hero{position:relative;overflow:hidden;}
+
+/* STATS BAR */
+.stats-bar{display:flex;align-items:center;justify-content:center;gap:0;max-width:900px;margin:0 auto;padding:1.5rem 2.5rem;flex-wrap:wrap;}
+.stat-item{text-align:center;padding:1rem 2rem;flex:1;min-width:120px;}
+.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--black);letter-spacing:-1px;}
+.stat-sym{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent);}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500;}
+.stat-sep{width:1px;height:40px;background:var(--gray2);flex-shrink:0;}
+@media(max-width:640px){.stat-sep{display:none;}.stat-item{min-width:calc(50% - 2rem);}}
+
+
+/* Highlight text animation */
+@keyframes highlightIn{from{background-size:0% 100%;}to{background-size:100% 100%;}}
+.highlight-text{background:linear-gradient(120deg,#dbeafe 0%,#bfdbfe 100%);background-repeat:no-repeat;background-size:0% 100%;background-position:0 88%;padding:0 4px;border-radius:4px;transition:none;}
+.highlight-text.visible{animation:highlightIn 0.6s 0.3s ease forwards;}
+
+/* Boutons animations */
+.btn-primary{transition:transform 0.2s cubic-bezier(0.34,1.3,0.64,1),box-shadow 0.2s;}
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 28px rgba(0,0,0,0.22);}
+.btn-primary:active{transform:translateY(0) scale(0.97);box-shadow:none;}
+
+.btn-secondary{transition:transform 0.2s cubic-bezier(0.34,1.3,0.64,1),box-shadow 0.2s,border-color 0.2s;}
+.btn-secondary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 22px rgba(0,0,0,0.1);border-color:var(--black);}
+.btn-secondary:active{transform:translateY(0) scale(0.97);}
+
+.btn-white{transition:transform 0.2s cubic-bezier(0.34,1.3,0.64,1),box-shadow 0.2s;}
+.btn-white:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 28px rgba(255,255,255,0.25);}
+.btn-white:active{transform:translateY(0) scale(0.97);}
+
+.btn-ghost-white{transition:transform 0.2s cubic-bezier(0.34,1.3,0.64,1),border-color 0.2s,color 0.2s;}
+.btn-ghost-white:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(255,255,255,0.7);color:var(--white);}
+.btn-ghost-white:active{transform:translateY(0) scale(0.97);}
+
+.btn-next{transition:transform 0.2s cubic-bezier(0.34,1.3,0.64,1),box-shadow 0.2s,opacity 0.2s;}
+.btn-next:not(:disabled):hover{transform:translateY(-2px) scale(1.04);box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+.btn-next:not(:disabled):active{transform:scale(0.97);}
+
+.nav-cta{transition:transform 0.2s cubic-bezier(0.34,1.3,0.64,1),box-shadow 0.2s,opacity 0.2s !important;}
+.nav-cta:hover{transform:translateY(-2px) scale(1.05) !important;box-shadow:0 6px 18px rgba(0,0,0,0.2);opacity:1 !important;}
+.nav-cta:active{transform:scale(0.96) !important;}
+
+/* Nav logo */
+.nav-logo{transition:opacity 0.2s,transform 0.2s;}
+.nav-logo:hover{opacity:0.7;transform:scale(1.04);}
+
+/* Steps */
+.step-num{transition:color 0.3s,transform 0.3s;}
+.step:hover .step-num{color:var(--accent);transform:scale(1.1);}
+.step{transition:transform 0.25s;}
+.step:hover{transform:translateY(-4px);}
+
+/* Tarifs */
+.tarif-card{transition:transform 0.3s cubic-bezier(0.4,0,0.2,1),box-shadow 0.3s;}
+.tarif-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.09);}
+
+/* Cursor glow */
+.cursor-glow{width:400px;height:400px;background:radial-gradient(circle,rgba(37,99,235,0.055) 0%,transparent 70%);position:fixed;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);z-index:0;transition:left 0.08s ease,top 0.08s ease,opacity 0.3s;opacity:0;}
+
+/* Section label */
+.section-label{overflow:hidden;}
+
+/* Floating dots decoration */
+@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:0.6;}100%{transform:translateY(-60px) scale(0.6);opacity:0;}}
+
+/* Example cards */
+.example-card{transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),border-color 0.25s,box-shadow 0.25s;}
+
+/* Service icon bounce */
+.service-icon{transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+
+/* GLOBE */
+.globe-wrap{position:relative;width:100%;max-width:680px;margin:0 auto;aspect-ratio:1/0.75;cursor:grab;}
+.globe-wrap:active{cursor:grabbing;}
+#globe-canvas{width:100%;height:100%;display:block;}
+#globe-tooltip{
+  position:absolute;pointer-events:none;
+  background:var(--black);color:var(--white);
+  font-size:12px;font-weight:600;
+  padding:5px 12px;border-radius:100px;
+  opacity:0;transition:opacity 0.2s;
+  white-space:nowrap;transform:translate(-50%,-130%);
+  letter-spacing:0.3px;
+}
+
+.q-field-wrap{position:relative;}
+.q-input-anim{transition:border-color 0.25s,box-shadow 0.25s,transform 0.2s;}
+.q-input-anim:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,0.1);transform:translateY(-1px);}
+.color-pickers-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.5rem;}
+.color-pick-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.color-pick-preview{width:72px;height:72px;border-radius:14px;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s;}
+.color-pick-preview:hover{transform:scale(1.1);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+.color-pick-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.9);text-shadow:0 1px 2px rgba(0,0,0,0.3);}
+.color-pick-hex{font-size:11px;font-weight:600;color:var(--muted);font-family:monospace;}
+.palette-row{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:0.5rem;}
+.palette-chip{display:flex;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s;border:2px solid transparent;}
+.palette-chip:hover{transform:scale(1.12);box-shadow:0 6px 16px rgba(0,0,0,0.15);border-color:var(--black);}
+.palette-chip span{display:block;width:22px;height:36px;}
+.style-tags-grid{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:8px;}
+.style-tag{display:inline-flex;align-items:center;gap:5px;padding:0.45rem 1rem;border:1.5px solid var(--gray2);border-radius:100px;font-size:13px;cursor:pointer;transition:all 0.2s cubic-bezier(0.34,1.3,0.64,1);user-select:none;background:var(--white);}
+.style-tag:hover{transform:translateY(-2px);border-color:#bbb;box-shadow:0 4px 10px rgba(0,0,0,0.07);}
+.style-tag.active{background:var(--black);color:var(--white);border-color:var(--black);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.upload-zone-anim{border:2px dashed var(--gray2);border-radius:16px;padding:2.5rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s,transform 0.2s;}
+.upload-zone-anim:hover{border-color:var(--accent);background:var(--accent-light);transform:scale(1.01);}
+.upload-icon{font-size:2.5rem;margin-bottom:0.6rem;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);display:block;}
+.upload-zone-anim:hover .upload-icon{transform:scale(1.2) rotate(-8deg);}
+.radio-cards{display:flex;gap:0.6rem;margin-top:10px;flex-wrap:wrap;}
+.radio-card{flex:1;min-width:120px;}
+.radio-card input{display:none;}
+.radio-card-inner{display:block;padding:0.75rem 0.5rem;border:1.5px solid var(--gray2);border-radius:12px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s cubic-bezier(0.34,1.3,0.64,1);}
+.radio-card-inner:hover{border-color:#bbb;background:var(--gray);transform:translateY(-2px);}
+.radio-card input:checked + .radio-card-inner{border-color:var(--black);border-width:2px;background:var(--black);color:var(--white);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.15);}
+@keyframes circleIn{0%{transform:scale(0) rotate(-20deg);opacity:0;}70%{transform:scale(1.15) rotate(5deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+.confirm-anim{margin-bottom:1.5rem;}
+.confirm-circle{width:70px;height:70px;background:linear-gradient(135deg,#16a34a,#22c55e);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;animation:circleIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;}
+
+</style>
+</head>
+<body>
+
+<!-- INTRO SCREEN -->
+<div id="intro">
+  <div id="i-stage">
+    <div id="i-line"></div>
+    <div id="i-text">A.</div>
+  </div>
+  <div id="i-boom"></div>
+</div>
+
+<nav>
+  <div class="nav-top">
+    <a href="#" class="nav-logo">Anas.</a>
+    <div class="nav-links-center">
+      <a href="#services" class="nav-cat active"><span data-t="nav_services">Services</span></a>
+      <a href="#comment" class="nav-cat"><span data-t="nav_comment">Comment ça marche</span></a>
+      <a href="#exemples" class="nav-cat"><span data-t="nav_exemples">Exemples</span></a>
+      <a href="#tarifs" class="nav-cat"><span data-t="nav_tarifs">Tarifs</span></a>
+      <a href="#questionnaire" class="nav-cat"><span data-t="nav_questionnaire">Questionnaire</span></a>
+      <a href="#contact-section" class="nav-cat"><span data-t="nav_contact">Contact</span></a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('ar')">ع</button>
+      </div>
+      <a href="#questionnaire" class="nav-cta" data-t="nav_cta">Démarrer mon projet</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<!-- HERO -->
+<div class="hero">
+  <canvas id="hero-particles" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.5;z-index:0;"></canvas>
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge"><span class="dot"></span><span data-t="hero_badge">Disponible ㆍ Offre de lancement</span></div>
+    <h1 data-t="hero_h1">Votre site web.</h1>
+    <p class="hero-sub" data-t="hero_sub">Je crée des sites modernes, rapides et adaptés à votre projet ㆍ que ce soit un portfolio, une page pour vendre, ou une vitrine pour votre activité.</p>
+    <div class="hero-actions">
+      <a href="#questionnaire" class="btn-primary" data-t="hero_cta1">Démarrer mon projet →</a>
+      <a href="#exemples" class="btn-secondary" data-t="hero_cta2">Voir des exemples</a>
+    </div>
+    <div class="price-tag"><strong>100 DH</strong> <span data-t="hero_price">pour le design ㆍ Mise en ligne en option</span></div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar reveal mob-anim-bounce">
+  <div class="stat-item"><span class="stat-num" data-target="100">0</span><span class="stat-sym">%</span><div class="stat-label">Satisfaction client</div></div>
+  <div class="stat-sep"></div>
+  <div class="stat-item"><span class="stat-num" data-target="24">0</span><span class="stat-sym">h</span><div class="stat-label">Délai de livraison</div></div>
+  <div class="stat-sep"></div>
+  <div class="stat-item"><span class="stat-num" data-target="100">0</span><span class="stat-sym"> DH</span><div class="stat-label">Dès le 1er projet</div></div>
+  <div class="stat-sep"></div>
+  <div class="stat-item"><span class="stat-num" data-target="5">0</span><span class="stat-sym"> types</span><div class="stat-label">De sites disponibles</div></div>
+</div>
+
+<hr class="divider">
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label reveal"  data-t="services_label">Ce que je propose</div>
+  <h2 class="reveal delay-1" data-t="services_h2">Tout ce dont vous avez besoin.</h2>
+  <div class="services-tilt-wrap reveal delay-2 mob-anim-pop" id="services-tilt">
+    <div class="services-grid" id="services-grid">
+      <div class="service-card"><div class="service-icon"><img src="PortfolioEmoji.png" alt="Portfolio"></div><h3 data-t="s1_title">Portfolio</h3><p data-t="s1_desc">Pour montrer vos créations, vos projets ou votre parcours de façon professionnelle.</p></div>
+      <div class="service-card"><div class="service-icon"><img src="PageDeVenteEmoji.png" alt="Page de vente"></div><h3 data-t="s2_title">Page de vente</h3><p data-t="s2_desc">Pour vendre un produit ou un service avec une page qui convainc et qui convertit.</p></div>
+      <div class="service-card"><div class="service-icon"><img src="BoutiqueEnLigneEmoji.png" alt="Boutique en ligne"></div><h3 data-t="s3_title">Boutique en ligne</h3><p data-t="s3_desc">Pour présenter vos produits avec photos, descriptions et prix de façon claire.</p></div>
+      <div class="service-card"><div class="service-icon"><img src="AdapteMobileEmoji.png" alt="Adapté mobile"></div><h3 data-t="s4_title">Adapté mobile</h3><p data-t="s4_desc">Votre site s'affiche parfaitement sur téléphone, tablette et ordinateur.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMMENT -->
+<section id="comment">
+
+<hr class="divider">
+
+<!-- TECH STACK -->
+<section id="tech" style="padding-top:4rem;padding-bottom:2rem;">
+  <div class="section-label reveal">Technologies</div>
+  <h2 class="reveal delay-1">Je maîtrise les bons outils<br>pour chaque projet.</h2>
+  <p style="color:var(--muted);font-size:15px;margin-top:0.5rem;margin-bottom:2.5rem;max-width:500px;line-height:1.7;" class="reveal delay-2">Survolez les icônes pour découvrir chaque technologie.</p>
+
+  <div class="globe-wrap reveal delay-2">
+    <canvas id="globe-canvas"></canvas>
+    <div id="globe-tooltip"></div>
+  </div>
+</section>
+
+<hr class="divider">
+  <div class="section-label reveal mob-anim-rise" data-t="how_label">Le processus</div>
+  <h2 class="reveal delay-1" data-t="how_h2">Simple comme bonjour.</h2>
+  <div class="steps">
+    <div class="step reveal delay-1 mob-anim-left mob-d1"><div class="step-num">01</div><h3 data-t="step1_title">Vous me contactez</h3><p data-t="step1_desc">On discute de votre projet. Pas besoin d'être technique, expliquez juste ce que vous voulez.</p></div>
+    <div class="step reveal delay-2 mob-anim-right mob-d2"><div class="step-num">02</div><h3 data-t="step2_title">Je crée votre site</h3><p data-t="step2_desc">Je m'occupe du design et du contenu. Vous n'avez rien à faire.</p></div>
+    <div class="step reveal delay-3 mob-anim-left mob-d3"><div class="step-num">03</div><h3 data-t="step3_title">Vous validez</h3><p data-t="step3_desc">Vous voyez le résultat. Si ça vous plaît, vous payez les 100 DH.</p></div>
+    <div class="step reveal delay-4 mob-anim-right mob-d4"><div class="step-num">04</div><h3 data-t="step4_title">C'est en ligne !</h3><p data-t="step4_desc">Votre site est accessible à tout le monde. Vous recevez le lien.</p></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXEMPLES -->
+<section id="exemples">
+  <div class="section-label reveal mob-anim-rise" data-t="ex_label">Exemples de projets</div>
+  <h2 class="reveal delay-1" data-t="ex_h2">Ce que vous pouvez obtenir.</h2>
+
+  <!-- CAROUSEL INFINI -->
+  <div class="carousel-outer">
+    <div class="carousel-track-inf" id="carousel-track-inf">
+      <!-- les 5 cartes originales -->
+
+      <!-- 1. Portfolio -->
+      <div class="example-card" onclick="openModal('portfolio')">
+        <div class="example-preview"><div class="preview-portfolio"><div class="p-nav"><div class="p-logo-dot"></div><div class="p-nav-dots"><div class="p-nav-dot"></div><div class="p-nav-dot"></div><div class="p-nav-dot"></div></div></div><div style="margin-top:1rem;"><div class="p-line" style="width:80%;"></div><div class="p-line" style="width:60%;"></div><div class="p-line short"></div></div><div class="p-grid"><div class="p-card-mini" style="background:#6366f1;opacity:0.8;"></div><div class="p-card-mini"></div><div class="p-card-mini" style="background:#3f3f3f;"></div></div></div></div>
+        <div class="example-info"><div class="example-tag" data-t="ex1_tag">Portfolio</div><h3 data-t="ex1_title">Vitrine de vos créations</h3><p data-t="ex1_desc">Artistes, photographes, designers…</p><span class="example-link" data-t="ex_see">Voir le détail →</span></div>
+      </div>
+
+      <!-- 2. Landing -->
+      <div class="example-card" onclick="openModal('landing')">
+        <div class="example-preview"><div class="preview-landing"><div class="pl-badge"></div><div class="pl-title"></div><div class="pl-sub"></div><div class="pl-sub" style="width:90px;background:rgba(255,255,255,0.3);"></div><div class="pl-btn"></div></div></div>
+        <div class="example-info"><div class="example-tag" data-t="ex2_tag">Page de vente</div><h3 data-t="ex2_title">Lancer un produit ou service</h3><p data-t="ex2_desc">Formations, coaching, services…</p><span class="example-link" data-t="ex_see">Voir le détail →</span></div>
+      </div>
+
+      <!-- 3. Shop -->
+      <div class="example-card" onclick="openModal('shop')">
+        <div class="example-preview"><div class="preview-shop"><div class="ps-top"><div class="ps-logo"></div><div class="ps-nav"><div class="ps-nline"></div><div class="ps-nline"></div><div class="ps-nline" style="width:14px;"></div></div></div><div class="ps-products"><div class="ps-product"><div class="ps-img" style="background:#e8e4dc;"></div><div class="ps-info"><div class="ps-name"></div><div class="ps-price"></div></div></div><div class="ps-product"><div class="ps-img" style="background:#dce4e8;"></div><div class="ps-info"><div class="ps-name"></div><div class="ps-price"></div></div></div><div class="ps-product"><div class="ps-img" style="background:#e8dce4;"></div><div class="ps-info"><div class="ps-name"></div><div class="ps-price"></div></div></div></div></div></div>
+        <div class="example-info"><div class="example-tag" data-t="ex3_tag">Boutique</div><h3 data-t="ex3_title">Vendre vos produits</h3><p data-t="ex3_desc">Objets, vêtements, créations artisanales…</p><span class="example-link" data-t="ex_see">Voir le détail →</span></div>
+      </div>
+
+      <!-- 4. École -->
+      <div class="example-card" onclick="openModal('cours')">
+        <div class="example-preview">
+          <div style="background:#f8faff;width:100%;height:100%;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#fff;border-bottom:1px solid #e8eaf6;">
+              <div style="display:flex;align-items:center;gap:6px;"><div style="width:18px;height:18px;background:#4f46e5;border-radius:5px;"></div><div style="width:48px;height:6px;background:#4f46e5;border-radius:3px;opacity:0.7;"></div></div>
+              <div style="display:flex;gap:8px;align-items:center;"><div style="width:28px;height:5px;background:#c7d2fe;border-radius:2px;"></div><div style="width:28px;height:5px;background:#c7d2fe;border-radius:2px;"></div><div style="width:44px;height:20px;background:#4f46e5;border-radius:100px;"></div></div>
+            </div>
+            <div style="background:linear-gradient(135deg,#eef2ff 0%,#f0fdf4 100%);padding:12px 14px 10px;">
+              <div style="width:55px;height:5px;background:#4f46e5;border-radius:2px;margin-bottom:8px;opacity:0.5;"></div>
+              <div style="width:88%;height:10px;background:#1e1b4b;border-radius:3px;margin-bottom:5px;opacity:0.85;"></div>
+              <div style="width:65%;height:10px;background:#1e1b4b;border-radius:3px;margin-bottom:10px;opacity:0.45;"></div>
+              <div style="display:flex;gap:6px;"><div style="width:80px;height:22px;background:#4f46e5;border-radius:100px;"></div><div style="width:60px;height:22px;background:#fff;border-radius:100px;border:1px solid #c7d2fe;"></div></div>
+            </div>
+            <div style="padding:8px 14px;display:flex;flex-direction:column;gap:5px;">
+              <div style="width:60px;height:5px;background:#c7d2fe;border-radius:2px;margin-bottom:2px;"></div>
+              <div style="background:#fff;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid #e8eaf6;"><div style="width:28px;height:28px;background:#eef2ff;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:12px;background:#4f46e5;border-radius:3px;opacity:0.7;"></div></div><div style="flex:1;"><div style="width:70%;height:5px;background:#1e1b4b;border-radius:2px;margin-bottom:3px;opacity:0.7;"></div><div style="width:45%;height:4px;background:#c7d2fe;border-radius:2px;"></div></div><div style="width:36px;height:5px;background:#4f46e5;border-radius:2px;opacity:0.4;"></div></div>
+              <div style="background:#fff;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid #e8eaf6;"><div style="width:28px;height:28px;background:#ecfeff;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:12px;background:#0891b2;border-radius:3px;opacity:0.7;"></div></div><div style="flex:1;"><div style="width:60%;height:5px;background:#1e1b4b;border-radius:2px;margin-bottom:3px;opacity:0.7;"></div><div style="width:40%;height:4px;background:#c7d2fe;border-radius:2px;"></div></div><div style="width:36px;height:5px;background:#0891b2;border-radius:2px;opacity:0.4;"></div></div>
+              <div style="background:#fff;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;border:1px solid #e8eaf6;"><div style="width:28px;height:28px;background:#f0fdf4;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:12px;background:#059669;border-radius:3px;opacity:0.7;"></div></div><div style="flex:1;"><div style="width:75%;height:5px;background:#1e1b4b;border-radius:2px;margin-bottom:3px;opacity:0.7;"></div><div style="width:35%;height:4px;background:#c7d2fe;border-radius:2px;"></div></div><div style="width:36px;height:5px;background:#059669;border-radius:2px;opacity:0.4;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="example-info"><div class="example-tag">École en ligne</div><h3>Proposer vos cours en ligne</h3><p>Professeurs, coachs, formateurs, tuteurs…</p><span class="example-link" data-t="ex_see">Voir le détail →</span></div>
+      </div>
+
+      <!-- 5. Restaurant -->
+      <div class="example-card" onclick="openModal('restaurant')">
+        <div class="example-preview">
+          <div style="background:#1a0a00;width:100%;height:100%;display:flex;flex-direction:column;padding:1.25rem;gap:0.5rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;"><div style="width:55px;height:7px;background:#d4af37;border-radius:3px;"></div><div style="display:flex;gap:8px;"><div style="width:28px;height:5px;background:#4a3000;border-radius:2px;"></div><div style="width:28px;height:5px;background:#4a3000;border-radius:2px;"></div><div style="width:28px;height:5px;background:#4a3000;border-radius:2px;"></div></div></div>
+            <div style="background:linear-gradient(135deg,#2a1500,#3a2000);border-radius:10px;padding:10px;margin-top:4px;"><div style="width:40px;height:4px;background:#d4af37;border-radius:2px;margin-bottom:8px;"></div><div style="width:85%;height:9px;background:#fff;border-radius:3px;margin-bottom:5px;opacity:0.9;"></div><div style="width:60%;height:7px;background:#d4af37;border-radius:3px;opacity:0.6;margin-bottom:10px;"></div><div style="width:80px;height:22px;background:#d4af37;border-radius:100px;"></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:2px;"><div style="background:#2a1500;border-radius:8px;height:38px;border:1px solid #3a2000;"></div><div style="background:#2a1500;border-radius:8px;height:38px;border:1px solid #3a2000;"></div><div style="background:#2a1500;border-radius:8px;height:38px;border:1px solid #3a2000;"></div></div>
+          </div>
+        </div>
+        <div class="example-info"><div class="example-tag">Restaurant / Café</div><h3>Présenter votre menu en ligne</h3><p>Restaurants, cafés, traiteurs, pâtisseries…</p><span class="example-link" data-t="ex_see">Voir le détail →</span></div>
+      </div>
+
+      <!-- CLONE des 5 cartes pour la boucle infinie (dupliqués par JS) -->
+    </div>
+  </div>
+
+<hr class="divider">
+
+<!-- TARIFS -->
+<section id="tarifs">
+  <div class="section-label reveal mob-anim-rise" data-t="tarif_label">Tarifs</div>
+  <h2 class="reveal delay-1" data-t="tarif_h2">Ce que ça coûte, clairement.</h2>
+
+  <div class="currency-switcher">
+    <button class="curr-btn active" onclick="setCurrency('DH')">DH</button>
+    <button class="curr-btn" onclick="setCurrency('EUR')">€</button>
+    <button class="curr-btn" onclick="setCurrency('USD')">$</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+    <div class="tarif-card reveal delay-1 mob-anim-flip mob-d1" style="border:2px solid var(--black);border-radius:16px;padding:2rem;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--black);color:var(--white);display:inline-block;padding:3px 10px;border-radius:100px;margin-bottom:1rem;" data-t="tarif_included">Inclus</div>
+      <div class="price-display" id="price-design">100 DH</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:1.5rem;" data-t="tarif_after">Paiement après validation du résultat</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:8px;font-size:13px;align-items:flex-start;"><span style="color:#16a34a;font-weight:700;">✓</span><span data-t="ti1">Design complet de votre site</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;align-items:flex-start;"><span style="color:#16a34a;font-weight:700;">✓</span><span data-t="ti2">Adapté téléphone + ordinateur</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;align-items:flex-start;"><span style="color:#16a34a;font-weight:700;">✓</span><span data-t="ti3">Contenu rédigé selon vos infos</span></div>
+        <div style="display:flex;gap:8px;font-size:13px;align-items:flex-start;"><span style="color:#16a34a;font-weight:700;">✓</span><span data-t="ti4">Fichier prêt à mettre en ligne</span></div>
+      </div>
+    </div>
+    <div class="tarif-card reveal delay-2 mob-anim-flip mob-d2" style="border:1.5px solid var(--gray2);border-radius:16px;padding:2rem;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:1rem;" data-t="tarif_domain">Mise en ligne (optionnel)</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:0.4rem;" data-t="tarif_domain_sub">+ Prix du domaine</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem;" data-t="tarif_domain_note">Payé par le client en avance</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--gray);border-radius:10px;">
+          <div><div style="font-weight:600;font-size:14px;">.com</div><div style="font-size:11px;color:var(--muted);">Namecheap</div></div>
+          <div style="font-weight:700;font-size:14px;" id="price-com">~60 DH/an</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--gray);border-radius:10px;">
+          <div><div style="font-weight:600;font-size:14px;">.net</div><div style="font-size:11px;color:var(--muted);">Hostinger</div></div>
+          <div style="font-weight:700;font-size:14px;" id="price-net">~130 DH/an</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--gray);border-radius:10px;">
+          <div><div style="font-weight:600;font-size:14px;">.org</div><div style="font-size:11px;color:var(--muted);">Namecheap</div></div>
+          <div style="font-weight:700;font-size:14px;" id="price-org">~150 DH/an</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding-top:4px;" data-t="tarif_note">💡 Renouvelé chaque année. Le domaine vous appartient.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- QUESTIONNAIRE -->
+<section id="questionnaire">
+  <div class="section-label reveal mob-anim-rise" data-t="q_label">Démarrer</div>
+  <h2 class="reveal delay-1" data-t="q_h2">Dites-moi ce que vous voulez.</h2>
+  <p style="color:var(--muted);font-size:15px;margin-top:0.5rem;margin-bottom:2.5rem;max-width:520px;line-height:1.7;" data-t="q_intro">Répondez aux questions ci-dessous ㆍ ça me prend 3 minutes à lire et ça me permet de créer exactement le site que vous avez en tête.</p>
+
+  <div style="border:1.5px solid var(--gray2);border-radius:20px;overflow:hidden;">
+    <div style="background:var(--gray);padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;" id="q-header">
+      <div id="step-indicator" style="display:flex;gap:0.5rem;"></div>
+      <div style="margin-left:auto;font-size:13px;color:var(--muted);" id="step-count">Étape 1 sur 5</div>
+    </div>
+    <div style="padding:2rem 2rem 2.5rem;" id="form-body">
+
+      <!-- S1 type -->
+      <div class="q-step" id="step-1">
+        <div class="q-eyebrow" data-t="s1_eye">Type de site</div>
+        <h3 class="q-title" data-t="s1_q">Quel type de site vous voulez ?</h3>
+        <div class="type-cards-grid">
+          <div class="type-card" data-color="purple" onclick="selectType(this,'portfolio')">
+            <div class="tc-icon"><img src="PortfolioIcon.png" alt="Portfolio"></div>
+            <div class="tc-name" data-t="tc_portfolio">Portfolio</div>
+            <div class="tc-sub" data-t="tc_portfolio_sub">Montrer vos créations</div>
+          </div>
+          <div class="type-card" data-color="orange" onclick="selectType(this,'vente')">
+            <div class="tc-icon"><img src="PageDeVenteIcon.png" alt="Page de vente"></div>
+            <div class="tc-name" data-t="tc_vente">Page de vente</div>
+            <div class="tc-sub" data-t="tc_vente_sub">Vendre un service</div>
+          </div>
+          <div class="type-card" data-color="blue" onclick="selectType(this,'boutique')">
+            <div class="tc-icon"><img src="BoutiqueIcon.png" alt="Boutique"></div>
+            <div class="tc-name" data-t="tc_boutique">Boutique</div>
+            <div class="tc-sub" data-t="tc_boutique_sub">Vendre des objets</div>
+          </div>
+          <div class="type-card" data-color="teal" onclick="selectType(this,'vitrine')">
+            <div class="tc-icon"><img src="VitrineIcon.png" alt="Vitrine"></div>
+            <div class="tc-name" data-t="tc_vitrine">Vitrine</div>
+            <div class="tc-sub" data-t="tc_vitrine_sub">Présenter votre activité</div>
+          </div>
+          <div class="type-card" data-color="indigo" onclick="selectType(this,'cours')">
+            <div class="tc-icon"><img src="EcoleEnLigneIcon.png" alt="École en ligne"></div>
+            <div class="tc-name">École en ligne</div>
+            <div class="tc-sub">Proposer vos cours</div>
+          </div>
+          <div class="type-card" data-color="amber" onclick="selectType(this,'restaurant')">
+            <div class="tc-icon"><img src="RestaurantIcon.png" alt="Restaurant / Café"></div>
+            <div class="tc-name">Restaurant / Café</div>
+            <div class="tc-sub">Présenter votre menu</div>
+          </div>
+        </div>
+        <div class="q-nav"><span></span><button class="btn-next" id="btn-1" disabled onclick="goStep(2)" data-t="btn_next">Suivant →</button></div>
+      </div>
+
+      <!-- S2 infos -->
+      <div class="q-step" id="step-2" style="display:none;">
+        <div class="q-eyebrow" data-t="s2_eye">Vos informations</div>
+        <h3 class="q-title" data-t="s2_q">Parlez-moi de vous et de votre projet.</h3>
+        <div class="q-fields">
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s2_nom">✏️ Votre nom / prénom ou nom du projet *</label>
+            <input type="text" class="q-input q-input-anim" id="q-nom" placeholder="Ex: Karim Benali, Studio Noor…" oninput="checkStep2()">
+          </div>
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s2_desc">💬 Décrivez votre projet en quelques mots *</label>
+            <textarea class="q-input q-input-anim" id="q-desc" rows="3" placeholder="Ex: Je vends des bijoux faits main, j'ai un salon de coiffure…" oninput="checkStep2()"></textarea>
+          </div>
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s2_domain">🌐 Vous avez déjà un domaine ? (optionnel)</label>
+            <input type="text" class="q-input q-input-anim" id="q-domain" placeholder="Ex: monsiteweb.com">
+          </div>
+        </div>
+        <div class="q-nav"><button class="btn-back" onclick="goStep(1)" data-t="btn_back">← Retour</button><button class="btn-next" id="btn-2" disabled onclick="goStep(3)" data-t="btn_next">Suivant →</button></div>
+      </div>
+
+      <!-- S3 couleurs -->
+      <div class="q-step" id="step-3" style="display:none;">
+        <div class="q-eyebrow" data-t="s3_eye">Couleurs & style</div>
+        <h3 class="q-title" data-t="s3_q">Choisissez vos couleurs principales.</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1.5rem;">Ces couleurs seront utilisées pour le design de votre site.</p>
+
+        <div class="color-pickers-row">
+          <div class="color-pick-item">
+            <div class="color-pick-preview" id="cp1-preview" style="background:#2563eb;" onclick="document.getElementById('color1').click()">
+              <span class="color-pick-label">Principale</span>
+            </div>
+            <input type="color" id="color1" value="#2563eb" style="display:none;" oninput="updateColorPicker('color1','cp1-preview','color1-hex')">
+            <div class="color-pick-hex" id="color1-hex">#2563eb</div>
+          </div>
+          <div class="color-pick-item">
+            <div class="color-pick-preview" id="cp2-preview" style="background:#f5f5f3;border:1px solid #e0e0e0;" onclick="document.getElementById('color2').click()">
+              <span class="color-pick-label" style="color:#888">Secondaire</span>
+            </div>
+            <input type="color" id="color2" value="#f5f5f3" style="display:none;" oninput="updateColorPicker('color2','cp2-preview','color2-hex')">
+            <div class="color-pick-hex" id="color2-hex">#f5f5f3</div>
+          </div>
+          <div class="color-pick-item">
+            <div class="color-pick-preview" id="cp3-preview" style="background:#ffffff;border:1px solid #e0e0e0;" onclick="document.getElementById('color3').click()">
+              <span class="color-pick-label" style="color:#888">Accent</span>
+            </div>
+            <input type="color" id="color3" value="#ffffff" style="display:none;" oninput="updateColorPicker('color3','cp3-preview','color3-hex')">
+            <div class="color-pick-hex" id="color3-hex">#ffffff</div>
+          </div>
+        </div>
+
+        <!-- Palettes suggérées -->
+        <div style="margin-top:1.5rem;">
+          <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.75rem;">Palettes suggérées — cliquez pour appliquer</div>
+          <div class="palette-row">
+            <div class="palette-chip" onclick="applyPalette('#0f172a','#f8fafc','#6366f1')" title="Sombre & Pro"><span style="background:#0f172a"></span><span style="background:#6366f1"></span><span style="background:#f8fafc"></span></div>
+            <div class="palette-chip" onclick="applyPalette('#d4af37','#1a0a00','#fff8e1')" title="Gold & Luxe"><span style="background:#1a0a00"></span><span style="background:#d4af37"></span><span style="background:#fff8e1"></span></div>
+            <div class="palette-chip" onclick="applyPalette('#2563eb','#ffffff','#dbeafe')" title="Bleu Moderne"><span style="background:#2563eb"></span><span style="background:#dbeafe"></span><span style="background:#ffffff"></span></div>
+            <div class="palette-chip" onclick="applyPalette('#059669','#f0fdf4','#d1fae5')" title="Vert Nature"><span style="background:#059669"></span><span style="background:#f0fdf4"></span><span style="background:#d1fae5"></span></div>
+            <div class="palette-chip" onclick="applyPalette('#dc2626','#fff1f2','#0f172a')" title="Rouge Impact"><span style="background:#dc2626"></span><span style="background:#fff1f2"></span><span style="background:#0f172a"></span></div>
+            <div class="palette-chip" onclick="applyPalette('#7c3aed','#faf5ff','#ede9fe')" title="Violet Créatif"><span style="background:#7c3aed"></span><span style="background:#ede9fe"></span><span style="background:#faf5ff"></span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;">
+          <label class="q-label" data-t="s3_style">🎨 Style général — choisissez tout ce qui vous correspond</label>
+          <div class="style-tags-grid">
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_moderne">⚡ Moderne</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_mini">🤍 Minimaliste</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_color">🌈 Coloré</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_dark">🌙 Sombre</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_eleg">💎 Élégant</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_fun">🔥 Fun / Dynamique</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_pro">💼 Professionnel</span>
+            <span class="style-tag" onclick="toggleTag(this)" data-t="st_art">🌿 Artisanal / Naturel</span>
+          </div>
+        </div>
+        <div class="q-nav"><button class="btn-back" onclick="goStep(2)" data-t="btn_back">← Retour</button><button class="btn-next" onclick="goStep(4)" data-t="btn_next">Suivant →</button></div>
+      </div>
+
+      <!-- S4 images -->
+      <div class="q-step" id="step-4" style="display:none;">
+        <div class="q-eyebrow" data-t="s4_eye">Images & contenu</div>
+        <h3 class="q-title" data-t="s4_q">Ajoutez vos photos et images.</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1.5rem;" data-t="s4_intro">Logo, photos de vos produits, photo de profil… Si vous n'en avez pas encore, laissez vide.</p>
+        <div id="upload-zone" onclick="document.getElementById('file-input').click()" class="upload-zone-anim">
+          <div class="upload-icon">📸</div>
+          <div style="font-weight:700;font-size:15px;margin-bottom:6px;" data-t="s4_upload">Glissez vos images ici ou cliquez</div>
+          <div style="font-size:12px;color:var(--muted);">JPG, PNG, GIF ㆍ max 10 fichiers</div>
+          <input type="file" id="file-input" multiple accept="image/*" style="display:none;" onchange="handleFiles(this.files)">
+        </div>
+        <div id="preview-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:0.75rem;margin-top:1.25rem;"></div>
+        <div style="margin-top:1.25rem;">
+          <label class="q-label" data-t="s4_desc_label">📝 Description des images (optionnel)</label>
+          <textarea class="q-input q-input-anim" id="q-images-desc" rows="2" placeholder="Ex: 1ère image = mon logo, les autres = mes produits…"></textarea>
+        </div>
+        <div class="q-nav"><button class="btn-back" onclick="goStep(3)" data-t="btn_back">← Retour</button><button class="btn-next" onclick="goStep(5)" data-t="btn_next">Suivant →</button></div>
+      </div>
+
+      <!-- S5 détails -->
+      <div class="q-step" id="step-5" style="display:none;">
+        <div class="q-eyebrow" data-t="s5_eye">Derniers détails</div>
+        <h3 class="q-title" data-t="s5_q">Quelques dernières questions.</h3>
+        <div class="q-fields">
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s5_inspo">🔍 Sites que vous aimez comme inspiration</label>
+            <input type="text" class="q-input q-input-anim" id="q-inspo" placeholder="Ex: apple.com, un site que vous avez vu…">
+          </div>
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s5_audience">👥 Votre public cible</label>
+            <input type="text" class="q-input q-input-anim" id="q-audience" placeholder="Ex: Femmes 25-40 ans au Maroc, jeunes entrepreneurs…">
+          </div>
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s5_contact">📞 Votre contact à afficher sur le site</label>
+            <input type="text" class="q-input q-input-anim" id="q-contact-client" placeholder="Ex: +212 6XX XXX XXX / email@gmail.com">
+          </div>
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s5_mel">🌍 Vous voulez la mise en ligne avec un domaine ?</label>
+            <div class="radio-cards">
+              <label class="radio-card"><input type="radio" name="mel" value="Oui" onchange="showDomainBox(true)"><span class="radio-card-inner">✅ <span data-t="mel_oui">Oui (.com etc.)</span></span></label>
+              <label class="radio-card"><input type="radio" name="mel" value="Non" onchange="showDomainBox(false)"><span class="radio-card-inner">📁 <span data-t="mel_non">Non, juste le fichier</span></span></label>
+              <label class="radio-card"><input type="radio" name="mel" value="Pas encore décidé" onchange="showDomainBox(false)"><span class="radio-card-inner">🤔 <span data-t="mel_later">Pas encore décidé</span></span></label>
+            </div>
+
+            <!-- Box domaine — apparaît si Oui -->
+            <div id="domain-box" style="display:none;margin-top:1rem;background:var(--accent-light);border:1.5px solid #bfdbfe;border-radius:14px;padding:1.25rem;animation:heroIn 0.35s ease both;">
+              <label class="q-label" style="color:var(--accent);">🔗 Quel nom de domaine vous voulez ?</label>
+              <div style="display:flex;align-items:center;gap:0.75rem;margin-top:8px;flex-wrap:wrap;">
+                <input type="text" id="q-domain-name" class="q-input q-input-anim" placeholder="Ex: monsiteweb" style="flex:1;min-width:140px;" oninput="updateDomainPrice()">
+                <select id="q-domain-ext" class="q-input q-input-anim" style="width:110px;cursor:pointer;" onchange="updateDomainPrice()">
+                  <option value=".com">.com</option>
+                  <option value=".net">.net</option>
+                  <option value=".org">.org</option>
+                  <option value=".ma">.ma</option>
+                  <option value=".fr">.fr</option>
+                  <option value=".shop">.shop</option>
+                </select>
+              </div>
+              <!-- Aperçu -->
+              <div style="margin-top:0.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+                <div style="font-size:13px;color:var(--muted);">Votre adresse : <span id="domain-preview" style="font-weight:700;color:var(--black);">monsiteweb.com</span></div>
+                <div id="domain-price-tag" style="background:var(--black);color:var(--white);font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px;">~60 DH/an</div>
+              </div>
+              <div style="font-size:11px;color:var(--muted);margin-top:6px;">💡 Ce montant est payé en avance avant la mise en ligne. Le domaine vous appartient.</div>
+            </div>
+          </div>
+          <div class="q-field-wrap">
+            <label class="q-label" data-t="s5_extra">💡 Autre chose à préciser ? (optionnel)</label>
+            <textarea class="q-input q-input-anim" id="q-extra" rows="3" placeholder="Tout ce que vous voulez qu'Anas sache pour créer votre site parfait…"></textarea>
+          </div>
+        </div>
+        <div class="q-nav"><button class="btn-back" onclick="goStep(4)" data-t="btn_back">← Retour</button><button class="btn-next" onclick="submitForm()" data-t="btn_send">Envoyer ma demande 🚀</button></div>
+      </div>
+
+      <!-- S6 confirmation -->
+      <div class="q-step" id="step-6" style="display:none;text-align:center;padding:2.5rem 0;">
+        <div class="confirm-anim">
+          <div class="confirm-circle">✓</div>
+        </div>
+        <h3 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:0.75rem;" data-t="confirm_title">Demande envoyée !</h3>
+        <p style="font-size:14px;color:var(--muted);max-width:400px;margin:0 auto 2rem;line-height:1.7;" data-t="confirm_sub">Anas vous recontacte dans les 24h. Vous pouvez aussi envoyer directement sur WhatsApp pour aller plus vite.</p>
+        <div id="recap-box" style="background:var(--gray);border-radius:14px;padding:1.5rem;text-align:left;max-width:460px;margin:0 auto 2rem;font-size:13px;line-height:1.9;"></div>
+        <a href="#" id="whatsapp-link" class="btn-primary" target="_blank" data-t="confirm_wa">💬 Envoyer aussi sur WhatsApp →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" style="margin-top:0;">
+
+<!-- CONTACT -->
+<section style="padding:5rem 2.5rem;">
+  <div id="contact-section" class="mob-anim-pop">
+    <div class="section-label reveal" data-t="contact_label">Contact direct</div>
+    <h2 class="reveal delay-1" data-t="contact_h2">Préférez parler directement ?</h2>
+    <p data-t="contact_sub">Je suis disponible sur WhatsApp et par email. Je réponds en moins de 24h.</p>
+    <div class="contact-options">
+      <a href="https://wa.me/212688271754" class="btn-white" target="_blank"><img src="WhatsAppIcon.png" alt="WhatsApp" style="width:20px;height:20px;object-fit:contain;"> +212 688 271 754</a>
+      <a href="mailto:EnfantDuNetPro@gmail.com" class="btn-ghost-white"><img src="GmailIcon.png" alt="Gmail" style="width:20px;height:20px;object-fit:contain;"> EnfantDuNetPro@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size:13px;color:var(--muted);margin-bottom:0.4rem;">Disponible partout en ligne</div>
+  © 2025 Anas ㆍ Webdesigner indépendant
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-site-preview" id="modal-site-preview"></div>
+    <div class="modal-info">
+      <div class="modal-info-left">
+        <div class="modal-tag" id="modal-tag"></div>
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <div class="modal-feat-list" id="modal-features"></div>
+        <a href="#questionnaire" class="btn-primary" onclick="closeModal()" data-t="modal_cta">Je veux ce type de site →</a>
+      </div>
+      <div class="modal-info-right">
+        <h4>Détails du projet</h4>
+        <div id="modal-specs"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== TRANSLATIONS ===== */
+const T = {
+  fr: {
+    nav_cta:"Démarrer mon projet", nav_services:"Services", nav_comment:"Comment ça marche",
+    nav_exemples:"Exemples", nav_tarifs:"Tarifs", nav_questionnaire:"Questionnaire", nav_contact:"Contact",
+    hero_badge:"Disponible ㆍ Offre de lancement",
+    hero_h1:"Votre site web.",
+    hero_sub:"Je crée des sites modernes, rapides et adaptés à votre projet ㆍ portfolio, page de vente, ou vitrine.",
+    hero_cta1:"Démarrer mon projet →", hero_cta2:"Voir des exemples",
+    hero_price:"pour le design · Mise en ligne en option",
+    services_label:"Ce que je propose", services_h2:"Tout ce dont vous avez besoin.",
+    s1_title:"Portfolio", s1_desc:"Pour montrer vos créations, vos projets ou votre parcours de façon professionnelle.",
+    s2_title:"Page de vente", s2_desc:"Pour vendre un produit ou un service avec une page qui convainc.",
+    s3_title:"Boutique en ligne", s3_desc:"Pour présenter vos produits avec photos, descriptions et prix.",
+    s4_title:"Adapté mobile", s4_desc:"Votre site s'affiche parfaitement sur téléphone, tablette et ordinateur.",
+    how_label:"Le processus", how_h2:"Simple comme bonjour.",
+    step1_title:"Vous me contactez", step1_desc:"On discute de votre projet. Pas besoin d'être technique.",
+    step2_title:"Je crée votre site", step2_desc:"Je m'occupe du design et du contenu. Vous n'avez rien à faire.",
+    step3_title:"Vous validez", step3_desc:"Vous voyez le résultat. Si ça vous plaît, vous payez les 100 DH.",
+    step4_title:"C'est en ligne !", step4_desc:"Votre site est accessible à tout le monde.",
+    ex_label:"Exemples de projets", ex_h2:"Ce que vous pouvez obtenir.",
+    ex1_tag:"Portfolio", ex1_title:"Vitrine de vos créations", ex1_desc:"Artistes, photographes, designers…",
+    ex2_tag:"Page de vente", ex2_title:"Lancer un produit ou service", ex2_desc:"Formations, coaching, services…",
+    ex3_tag:"Boutique", ex3_title:"Vendre vos produits", ex3_desc:"Objets, vêtements, créations artisanales…",
+    ex_see:"Voir le détail →",
+    tarif_label:"Tarifs", tarif_h2:"Ce que ça coûte, clairement.",
+    tarif_included:"Inclus", tarif_after:"Paiement après validation du résultat",
+    ti1:"Design complet de votre site", ti2:"Adapté téléphone + ordinateur",
+    ti3:"Contenu rédigé selon vos infos", ti4:"Fichier prêt à mettre en ligne",
+    tarif_domain:"Mise en ligne (optionnel)", tarif_domain_sub:"+ Prix du domaine",
+    tarif_domain_note:"Payé par le client en avance", tarif_note:"💡 Renouvelé chaque année. Le domaine vous appartient.",
+    q_label:"Démarrer", q_h2:"Dites-moi ce que vous voulez.",
+    q_intro:"Répondez aux questions ci-dessous ㆍ ça me prend 3 minutes à lire et ça me permet de créer exactement le site que vous avez en tête.",
+    s1_eye:"Type de site", s1_q:"Quel type de site vous voulez ?",
+    tc_portfolio:"Portfolio", tc_portfolio_sub:"Montrer vos créations",
+    tc_vente:"Page de vente", tc_vente_sub:"Vendre un service",
+    tc_boutique:"Boutique", tc_boutique_sub:"Vendre des objets",
+    tc_vitrine:"Vitrine", tc_vitrine_sub:"Présenter votre activité",
+    s2_eye:"Vos informations", s2_q:"Parlez-moi de vous et de votre projet.",
+    s2_nom:"Votre nom / prénom ou nom du projet *",
+    s2_desc:"Décrivez votre projet en quelques mots *",
+    s2_domain:"Vous avez déjà un domaine ? (optionnel)",
+    s3_eye:"Couleurs & style", s3_q:"Choisissez vos couleurs principales.",
+    s3_c1:"Couleur principale *", s3_c2:"Couleur secondaire (optionnel)", s3_c3:"Couleur d'accentuation (optionnel)",
+    s3_style:"Style général",
+    st_moderne:"Moderne", st_mini:"Minimaliste", st_color:"Coloré", st_dark:"Sombre",
+    st_eleg:"Élégant", st_fun:"Fun / Dynamique", st_pro:"Professionnel", st_art:"Artisanal / Naturel",
+    s4_eye:"Images & contenu", s4_q:"Ajoutez vos photos et images.",
+    s4_intro:"Logo, photos de vos produits, photo de profil... Si vous n'en avez pas encore, laissez vide.",
+    s4_upload:"Cliquez pour ajouter vos images", s4_desc_label:"Description des images (optionnel)",
+    s5_eye:"Derniers détails", s5_q:"Quelques dernières questions.",
+    s5_inspo:"Sites que vous aimez comme inspiration",
+    s5_audience:"Votre public cible",
+    s5_contact:"Votre contact à afficher sur le site",
+    s5_mel:"Vous voulez la mise en ligne avec un domaine ?",
+    mel_oui:"Oui (.com etc.)", mel_non:"Non, juste le fichier", mel_later:"Pas encore décidé",
+    s5_extra:"Autre chose à préciser ? (optionnel)",
+    btn_next:"Suivant →", btn_back:"← Retour", btn_send:"Envoyer ma demande →",
+    confirm_title:"Demande envoyée !", confirm_sub:"Anas vous recontacte dans les 24h.",
+    confirm_wa:"💬 Envoyer aussi sur WhatsApp →",
+    contact_label:"Contact direct", contact_h2:"Préférez parler directement ?",
+    contact_sub:"Je suis disponible sur WhatsApp et par email. Je réponds en moins de 24h.",
+    modal_cta:"Je veux ce type de site →",
+    step_of:"Étape {n} sur 5"
+  },
+  en: {
+    nav_cta:"Start my project", nav_services:"Services", nav_comment:"How it works",
+    nav_exemples:"Examples", nav_tarifs:"Pricing", nav_questionnaire:"Questionnaire", nav_contact:"Contact",
+    hero_badge:"Available ㆍ Launch offer",
+    hero_h1:"Your website.",
+    hero_sub:"I create modern, fast websites tailored to your project ㆍ portfolio, sales page, or showcase site.",
+    hero_cta1:"Start my project →", hero_cta2:"See examples",
+    hero_price:"for the design · Online hosting optional",
+    services_label:"What I offer", services_h2:"Everything you need.",
+    s1_title:"Portfolio", s1_desc:"To showcase your work, projects, or career professionally.",
+    s2_title:"Sales page", s2_desc:"To sell a product or service with a page that convinces.",
+    s3_title:"Online shop", s3_desc:"To display your products with photos, descriptions, and prices.",
+    s4_title:"Mobile-friendly", s4_desc:"Your site looks perfect on phone, tablet, and computer.",
+    how_label:"The process", how_h2:"Simple as can be.",
+    step1_title:"You contact me", step1_desc:"We discuss your project. No need to be technical.",
+    step2_title:"I build your site", step2_desc:"I handle design and content. You don't have to do anything.",
+    step3_title:"You approve", step3_desc:"You see the result. If you like it, you pay.",
+    step4_title:"It's live!", step4_desc:"Your site is accessible to everyone.",
+    ex_label:"Project examples", ex_h2:"What you can get.",
+    ex1_tag:"Portfolio", ex1_title:"Showcase your work", ex1_desc:"Artists, photographers, designers…",
+    ex2_tag:"Sales page", ex2_title:"Launch a product or service", ex2_desc:"Courses, coaching, online services…",
+    ex3_tag:"Shop", ex3_title:"Sell your products", ex3_desc:"Objects, clothes, handmade creations…",
+    ex_see:"See details →",
+    tarif_label:"Pricing", tarif_h2:"What it costs, clearly.",
+    tarif_included:"Included", tarif_after:"Payment after you approve the result",
+    ti1:"Full website design", ti2:"Mobile + desktop responsive",
+    ti3:"Content written from your info", ti4:"File ready to go online",
+    tarif_domain:"Hosting (optional)", tarif_domain_sub:"+ Domain price",
+    tarif_domain_note:"Paid by client upfront", tarif_note:"💡 Renewed yearly. The domain is yours.",
+    q_label:"Get started", q_h2:"Tell me what you want.",
+    q_intro:"Answer the questions below ㆍ takes me 3 minutes to read and helps me build exactly the site you have in mind.",
+    s1_eye:"Site type", s1_q:"What type of site do you want?",
+    tc_portfolio:"Portfolio", tc_portfolio_sub:"Showcase your work",
+    tc_vente:"Sales page", tc_vente_sub:"Sell a service",
+    tc_boutique:"Shop", tc_boutique_sub:"Sell products",
+    tc_vitrine:"Showcase", tc_vitrine_sub:"Present your business",
+    s2_eye:"Your information", s2_q:"Tell me about you and your project.",
+    s2_nom:"Your name / project name *",
+    s2_desc:"Describe your project in a few words *",
+    s2_domain:"Do you already have a domain? (optional)",
+    s3_eye:"Colors & style", s3_q:"Choose your main colors.",
+    s3_c1:"Main color *", s3_c2:"Secondary color (optional)", s3_c3:"Accent color (optional)",
+    s3_style:"General style",
+    st_moderne:"Modern", st_mini:"Minimalist", st_color:"Colorful", st_dark:"Dark",
+    st_eleg:"Elegant", st_fun:"Fun / Dynamic", st_pro:"Professional", st_art:"Handcrafted / Natural",
+    s4_eye:"Images & content", s4_q:"Add your photos and images.",
+    s4_intro:"Logo, product photos, profile picture... Leave blank if you don't have any yet.",
+    s4_upload:"Click to add your images", s4_desc_label:"Image description (optional)",
+    s5_eye:"Last details", s5_q:"A few last questions.",
+    s5_inspo:"Sites you like as inspiration",
+    s5_audience:"Your target audience",
+    s5_contact:"Your contact to display on the site",
+    s5_mel:"Do you want the site hosted with a domain?",
+    mel_oui:"Yes (.com etc.)", mel_non:"No, just the file", mel_later:"Not decided yet",
+    s5_extra:"Anything else to add? (optional)",
+    btn_next:"Next →", btn_back:"← Back", btn_send:"Send my request →",
+    confirm_title:"Request sent!", confirm_sub:"Anas will get back to you within 24h.",
+    confirm_wa:"💬 Also send on WhatsApp →",
+    contact_label:"Direct contact", contact_h2:"Prefer to talk directly?",
+    contact_sub:"Available on WhatsApp and email. I reply within 24h.",
+    modal_cta:"I want this type of site →",
+    step_of:"Step {n} of 5"
+  },
+  ar: {
+    nav_cta:"ابدأ مشروعي", nav_services:"الخدمات", nav_comment:"كيف يعمل",
+    nav_exemples:"أمثلة", nav_tarifs:"الأسعار", nav_questionnaire:"الاستبيان", nav_contact:"التواصل",
+    hero_badge:"متاح ㆍ عرض الإطلاق",
+    hero_h1:"موقعك الإلكتروني.",
+    hero_sub:"أصمم مواقع عصرية وسريعة تناسب مشروعك ㆍ بورتفوليو، صفحة بيع، أو موقع تعريفي.",
+    hero_cta1:"ابدأ مشروعي ←", hero_cta2:"مشاهدة أمثلة",
+    hero_price:"للتصميم · الاستضافة اختيارية",
+    services_label:"ما أقدمه", services_h2:"كل ما تحتاجه.",
+    s1_title:"بورتفوليو", s1_desc:"لعرض أعمالك ومشاريعك بشكل احترافي.",
+    s2_title:"صفحة بيع", s2_desc:"لبيع منتج أو خدمة بصفحة مقنعة.",
+    s3_title:"متجر إلكتروني", s3_desc:"لعرض منتجاتك مع الصور والأسعار.",
+    s4_title:"متوافق مع الهاتف", s4_desc:"موقعك يظهر بشكل مثالي على كل الأجهزة.",
+    how_label:"الطريقة", how_h2:"بسيط جداً.",
+    step1_title:"تتواصل معي", step1_desc:"نتحدث عن مشروعك. لا تحتاج أن تكون خبيراً.",
+    step2_title:"أصمم موقعك", step2_desc:"أتولى التصميم والمحتوى. لا شيء عليك.",
+    step3_title:"توافق", step3_desc:"تشاهد النتيجة. إن أعجبتك تدفع.",
+    step4_title:"الموقع يعمل!", step4_desc:"موقعك متاح للجميع. تستلم الرابط.",
+    ex_label:"أمثلة على المشاريع", ex_h2:"ما يمكنك الحصول عليه.",
+    ex1_tag:"بورتفوليو", ex1_title:"عرض أعمالك", ex1_desc:"فنانون، مصورون، مصممون…",
+    ex2_tag:"صفحة بيع", ex2_title:"إطلاق منتج أو خدمة", ex2_desc:"دورات، كوتشينغ، خدمات…",
+    ex3_tag:"متجر", ex3_title:"بيع منتجاتك", ex3_desc:"أشياء، ملابس، منتجات يدوية…",
+    ex_see:"← عرض التفاصيل",
+    tarif_label:"الأسعار", tarif_h2:"الأسعار بوضوح.",
+    tarif_included:"مشمول", tarif_after:"الدفع بعد الموافقة على النتيجة",
+    ti1:"تصميم كامل للموقع", ti2:"متوافق مع الهاتف والحاسوب",
+    ti3:"محتوى مكتوب حسب معلوماتك", ti4:"ملف جاهز للنشر",
+    tarif_domain:"الاستضافة (اختياري)", tarif_domain_sub:"+ سعر النطاق",
+    tarif_domain_note:"يدفعه العميل مسبقاً", tarif_note:"💡 يتجدد سنوياً. النطاق ملكك.",
+    q_label:"ابدأ", q_h2:"أخبرني بما تريد.",
+    q_intro:"أجب على الأسئلة أدناه ㆍ تستغرق مني 3 دقائق وتساعدني على بناء موقعك بالشكل الذي تتخيله.",
+    s1_eye:"نوع الموقع", s1_q:"ما نوع الموقع الذي تريده؟",
+    tc_portfolio:"بورتفوليو", tc_portfolio_sub:"عرض أعمالك",
+    tc_vente:"صفحة بيع", tc_vente_sub:"بيع خدمة",
+    tc_boutique:"متجر", tc_boutique_sub:"بيع منتجات",
+    tc_vitrine:"موقع تعريفي", tc_vitrine_sub:"تقديم نشاطك",
+    s2_eye:"معلوماتك", s2_q:"أخبرني عنك وعن مشروعك.",
+    s2_nom:"اسمك / اسم المشروع *",
+    s2_desc:"صف مشروعك بكلمات قليلة *",
+    s2_domain:"هل لديك نطاق مسبقاً؟ (اختياري)",
+    s3_eye:"الألوان والأسلوب", s3_q:"اختر ألوانك الرئيسية.",
+    s3_c1:"اللون الرئيسي *", s3_c2:"اللون الثانوي (اختياري)", s3_c3:"لون التمييز (اختياري)",
+    s3_style:"الأسلوب العام",
+    st_moderne:"عصري", st_mini:"بسيط", st_color:"ملون", st_dark:"داكن",
+    st_eleg:"أنيق", st_fun:"ممتع / ديناميكي", st_pro:"احترافي", st_art:"يدوي / طبيعي",
+    s4_eye:"الصور والمحتوى", s4_q:"أضف صورك.",
+    s4_intro:"الشعار، صور المنتجات، صورتك الشخصية... اتركه فارغاً إن لم يكن لديك صور بعد.",
+    s4_upload:"انقر لإضافة صورك", s4_desc_label:"وصف الصور (اختياري)",
+    s5_eye:"آخر التفاصيل", s5_q:"بعض الأسئلة الأخيرة.",
+    s5_inspo:"مواقع تعجبك كمرجع",
+    s5_audience:"جمهورك المستهدف",
+    s5_contact:"معلومات التواصل التي ستُعرض في الموقع",
+    s5_mel:"هل تريد استضافة الموقع بنطاق؟",
+    mel_oui:"نعم (.com إلخ)", mel_non:"لا، الملف فقط", mel_later:"لم أقرر بعد",
+    s5_extra:"شيء آخر تريد إضافته؟ (اختياري)",
+    btn_next:"التالي ←", btn_back:"→ رجوع", btn_send:"إرسال طلبي ←",
+    confirm_title:"تم إرسال طلبك!", confirm_sub:"أنس سيتواصل معك خلال 24 ساعة.",
+    confirm_wa:"💬 أرسل أيضاً على واتساب ←",
+    contact_label:"تواصل مباشر", contact_h2:"تفضل التحدث مباشرة؟",
+    contact_sub:"متاح على واتساب والبريد الإلكتروني. أرد خلال 24 ساعة.",
+    modal_cta:"← أريد هذا النوع من المواقع",
+    step_of:"خطوة {n} من 5"
+  }
+};
+
+let currentLang = 'fr';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick="setLang(\''+lang+'\')"]').classList.add('active');
+  const isAr = lang === 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+  document.body.style.direction = isAr ? 'rtl' : 'ltr';
+  const t = T[lang];
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  updateStepCount();
+}
+
+/* ===== CURRENCY ===== */
+const rates = { DH: {design:100, com:'~60 DH/an', net:'~130 DH/an', org:'~150 DH/an'},
+  EUR: {design:'9 €', com:'~5 €/an', net:'~12 €/an', org:'~14 €/an'},
+  USD: {design:'10 $', com:'~6 $/an', net:'~13 $/an', org:'~15 $/an'} };
+
+function setCurrency(c) {
+  document.querySelectorAll('.curr-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.curr-btn[onclick="setCurrency(\''+c+'\')"]').classList.add('active');
+  const r = rates[c];
+  document.getElementById('price-design').textContent = r.design;
+  document.getElementById('price-com').textContent = r.com;
+  document.getElementById('price-net').textContent = r.net;
+  document.getElementById('price-org').textContent = r.org;
+}
+
+/* ===== QUESTIONNAIRE ===== */
+let currentStep = 1, selectedType = '', uploadedFiles = [];
+
+function updateStepCount() {
+  const t = T[currentLang];
+  document.getElementById('step-count').textContent = t.step_of.replace('{n}', currentStep);
+}
+
+function initIndicator() {
+  const ind = document.getElementById('step-indicator');
+  ind.innerHTML = '';
+  for (let i=1;i<=5;i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot'+(i<currentStep?' done':i===currentStep?' active':'');
+    ind.appendChild(d);
+  }
+  updateStepCount();
+}
+
+function goStep(n) {
+  document.getElementById('step-'+currentStep).style.display='none';
+  currentStep=n;
+  document.getElementById('step-'+currentStep).style.display='';
+  initIndicator();
+  document.getElementById('form-body').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function selectType(el,val) {
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); selectedType=val;
+  document.getElementById('btn-1').disabled=false;
+}
+
+function checkStep2() {
+  const n=document.getElementById('q-nom').value.trim();
+  const d=document.getElementById('q-desc').value.trim();
+  document.getElementById('btn-2').disabled=!(n&&d);
+}
+
+function updateColorPicker(inputId, previewId, hexId) {
+  const val = document.getElementById(inputId).value;
+  document.getElementById(previewId).style.background = val;
+  document.getElementById(hexId).textContent = val;
+  const lbl = document.getElementById(previewId).querySelector('.color-pick-label');
+  if(lbl) { const r=parseInt(val.slice(1,3),16),g=parseInt(val.slice(3,5),16),b=parseInt(val.slice(5,7),16); const bright=(r*299+g*587+b*114)/1000; lbl.style.color=bright>128?'rgba(0,0,0,0.7)':'rgba(255,255,255,0.9)'; }
+}
+
+function applyPalette(c1, c2, c3) {
+  ['color1','color2','color3'].forEach((id,i)=>{
+    const val=[c1,c2,c3][i];
+    document.getElementById(id).value=val;
+    updateColorPicker(id,'cp'+(i+1)+'-preview',id.replace('color','color')+'-hex'.replace('color','color'));
+  });
+  document.getElementById('color1-hex').textContent=c1;
+  document.getElementById('color2-hex').textContent=c2;
+  document.getElementById('color3-hex').textContent=c3;
+  document.getElementById('cp1-preview').style.background=c1;
+  document.getElementById('cp2-preview').style.background=c2;
+  document.getElementById('cp3-preview').style.background=c3;
+  // flash animation
+  ['cp1-preview','cp2-preview','cp3-preview'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.style.transform='scale(1.15)';
+    setTimeout(()=>el.style.transform='scale(1)',300);
+  });
+}
+
+function showDomainBox(show){
+  const box = document.getElementById('domain-box');
+  if(!box) return;
+  box.style.display = show ? 'block' : 'none';
+  if(show) updateDomainPrice();
+}
+
+function updateDomainPrice(){
+  const name = document.getElementById('q-domain-name')?.value.trim() || 'monsiteweb';
+  const ext  = document.getElementById('q-domain-ext')?.value || '.com';
+  const prices = {'.com':'~60 DH/an','.net':'~130 DH/an','.org':'~150 DH/an','.ma':'~200 DH/an','.fr':'~100 DH/an','.shop':'~90 DH/an'};
+  const preview = document.getElementById('domain-preview');
+  const tag     = document.getElementById('domain-price-tag');
+  if(preview) preview.textContent = (name||'monsiteweb') + ext;
+  if(tag)     tag.textContent = prices[ext] || '~60 DH/an';
+}
+
+function toggleTag(el){el.classList.toggle('active');}
+
+
+function handleFiles(files) {
+  const grid=document.getElementById('preview-grid');
+  Array.from(files).slice(0,10-uploadedFiles.length).forEach(file=>{
+    if(!file.type.startsWith('image/'))return;
+    const idx=uploadedFiles.length; uploadedFiles.push(file);
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const wrap=document.createElement('div'); wrap.className='img-preview';
+      wrap.innerHTML='<img src="'+e.target.result+'"><button class="rm" onclick="removeImg(this,'+idx+')">✕</button>';
+      grid.appendChild(wrap);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function removeImg(btn,idx){uploadedFiles.splice(idx,1);btn.parentElement.remove();}
+
+function getSelectedTags(){return Array.from(document.querySelectorAll('.style-tag.active')).map(t=>t.textContent).join(', ')||'ㆍ';}
+function getRadio(name){const r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'ㆍ';}
+
+function submitForm() {
+  const typeLabels={portfolio:'🎨 Portfolio',vente:'🚀 Page de vente',boutique:'🏪 Boutique',vitrine:'🏢 Vitrine'};
+  const d={
+    type:typeLabels[selectedType]||selectedType,
+    nom:document.getElementById('q-nom').value.trim(),
+    desc:document.getElementById('q-desc').value.trim(),
+    domain:document.getElementById('q-domain').value.trim()||'ㆍ',
+    c1:document.getElementById('color1').value,
+    c2:document.getElementById('color2').value,
+    c3:document.getElementById('color3').value,
+    style:getSelectedTags(),
+    imgs:uploadedFiles.length+' image(s)',
+    imgsDesc:document.getElementById('q-images-desc').value.trim()||'ㆍ',
+    inspo:document.getElementById('q-inspo').value.trim()||'ㆍ',
+    audience:document.getElementById('q-audience').value.trim()||'ㆍ',
+    contact:document.getElementById('q-contact-client').value.trim()||'ㆍ',
+    mel:getRadio('mel'),
+    domainName: (document.getElementById('q-domain-name')?.value.trim()||'') + (document.getElementById('q-domain-ext')?.value||''),
+    domainPrice: document.getElementById('domain-price-tag')?.textContent||'',
+    extra:document.getElementById('q-extra').value.trim()||'ㆍ'
+  };
+
+  document.getElementById('recap-box').innerHTML=`
+    <b>Type :</b> ${d.type}<br>
+    <b>Nom/Projet :</b> ${d.nom}<br>
+    <b>Description :</b> ${d.desc}<br>
+    <b>Domaine :</b> ${d.domain}<br>
+    <b>Couleurs :</b>
+      <span style="display:inline-block;width:13px;height:13px;background:${d.c1};border-radius:3px;vertical-align:middle;border:1px solid #ddd;"></span> ${d.c1}
+      <span style="display:inline-block;width:13px;height:13px;background:${d.c2};border-radius:3px;vertical-align:middle;border:1px solid #ddd;margin-left:6px;"></span> ${d.c2}
+      <span style="display:inline-block;width:13px;height:13px;background:${d.c3};border-radius:3px;vertical-align:middle;border:1px solid #ddd;margin-left:6px;"></span> ${d.c3}<br>
+    <b>Style :</b> ${d.style}<br>
+    <b>Images :</b> ${d.imgs} ㆍ ${d.imgsDesc}<br>
+    <b>Inspiration :</b> ${d.inspo}<br>
+    <b>Public cible :</b> ${d.audience}<br>
+    <b>Contact site :</b> ${d.contact}<br>
+    <b>Mise en ligne :</b> ${d.mel}${d.domainName?' — '+d.domainName+' ('+d.domainPrice+')':''}<br>
+    <b>Autres :</b> ${d.extra}`;
+
+  const msg=encodeURIComponent(
+    'Bonjour Anas ! Voici ma demande 👇\n\n'+
+    '• Type : '+d.type+'\n'+'• Nom : '+d.nom+'\n'+'• Projet : '+d.desc+'\n'+
+    '• Domaine : '+d.domain+'\n'+'• Couleurs : '+d.c1+' / '+d.c2+' / '+d.c3+'\n'+
+    '• Style : '+d.style+'\n'+'• Images : '+d.imgs+'\n'+'• Inspiration : '+d.inspo+'\n'+
+    '• Public : '+d.audience+'\n'+'• Contact : '+d.contact+'\n'+
+    '• Mise en ligne : '+d.mel+(d.domainName?' — '+d.domainName+' ('+d.domainPrice+')':'')+'\n'+'• Autres : '+d.extra);
+  document.getElementById('whatsapp-link').href='https://wa.me/212688271754?text='+msg;
+
+  /* Formspree submit */
+  const formData=new FormData();
+  formData.append('_replyto','EnfantDuNetPro@gmail.com');
+  formData.append('Type de site',d.type);
+  formData.append('Nom / Projet',d.nom);
+  formData.append('Description',d.desc);
+  formData.append('Domaine existant',d.domain);
+  formData.append('Couleur 1',d.c1);
+  formData.append('Couleur 2',d.c2);
+  formData.append('Couleur 3',d.c3);
+  formData.append('Style',d.style);
+  formData.append('Images',d.imgs+' ㆍ '+d.imgsDesc);
+  formData.append('Inspiration',d.inspo);
+  formData.append('Public cible',d.audience);
+  formData.append('Contact client',d.contact);
+  formData.append('Mise en ligne',d.mel);
+  formData.append('Autres infos',d.extra);
+  uploadedFiles.forEach((f,i)=>formData.append('image_'+(i+1),f));
+  fetch('https://formspree.io/f/VOTRE_ID_FORMSPREE',{method:'POST',body:formData,headers:{'Accept':'application/json'}})
+    .catch(()=>{});
+
+  document.getElementById('step-5').style.display='none';
+  document.getElementById('q-header').style.display='none';
+  document.getElementById('step-6').style.display='';
+  document.getElementById('form-body').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ===== CAROUSEL INFINI ===== */
+(function(){
+  const track = document.getElementById('carousel-track-inf');
+  if(!track) return;
+  // Cloner les cartes pour boucle seamless
+  const origCards = Array.from(track.querySelectorAll('.example-card'));
+  origCards.forEach(c => track.appendChild(c.cloneNode(true)));
+  // Re-attacher les onclick sur les clones
+  track.querySelectorAll('.example-card').forEach(card => {
+    const onclick = card.getAttribute('onclick');
+    if(onclick) card.addEventListener('click', ()=>eval(onclick));
+  });
+})();
+
+initIndicator();
+
+/* ===== MODALS ===== */
+const modalPreviews = {
+  portfolio: `
+    <div style="background:#0d0d0d;padding:0;font-family:'Inter',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 28px;border-bottom:1px solid #222;">
+        <div style="font-weight:800;font-size:15px;color:#fff;letter-spacing:-0.5px;">Sarah.K</div>
+        <div style="display:flex;gap:20px;">
+          <div style="width:40px;height:6px;background:#333;border-radius:3px;"></div>
+          <div style="width:40px;height:6px;background:#333;border-radius:3px;"></div>
+          <div style="width:40px;height:6px;background:#333;border-radius:3px;"></div>
+          <div style="width:56px;height:24px;background:#6366f1;border-radius:100px;"></div>
+        </div>
+      </div>
+      <div style="padding:36px 28px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;">
+        <div style="flex:1;">
+          <div style="width:60px;height:6px;background:#6366f1;border-radius:3px;margin-bottom:14px;"></div>
+          <div style="width:85%;height:18px;background:#fff;border-radius:4px;margin-bottom:10px;opacity:0.95;"></div>
+          <div style="width:65%;height:18px;background:#fff;border-radius:4px;margin-bottom:18px;opacity:0.7;"></div>
+          <div style="width:75%;height:9px;background:#555;border-radius:3px;margin-bottom:6px;"></div>
+          <div style="width:55%;height:9px;background:#555;border-radius:3px;margin-bottom:20px;"></div>
+          <div style="display:flex;gap:10px;">
+            <div style="width:100px;height:32px;background:#6366f1;border-radius:100px;"></div>
+            <div style="width:80px;height:32px;background:#1e1e1e;border-radius:100px;border:1px solid #444;"></div>
+          </div>
+        </div>
+        <div style="width:140px;height:140px;background:#1a1a2e;border-radius:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+          <div style="width:70px;height:70px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:50%;"></div>
+        </div>
+      </div>
+      <div style="padding:0 28px 24px;">
+        <div style="width:70px;height:6px;background:#333;border-radius:3px;margin-bottom:14px;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <div style="background:#1a1a1a;border-radius:10px;overflow:hidden;"><div style="height:68px;background:linear-gradient(135deg,#6366f1 0%,#1a1a1a 100%);"></div><div style="padding:8px;"><div style="width:70%;height:6px;background:#333;border-radius:2px;margin-bottom:4px;"></div><div style="width:45%;height:5px;background:#222;border-radius:2px;"></div></div></div>
+          <div style="background:#1a1a1a;border-radius:10px;overflow:hidden;"><div style="height:68px;background:linear-gradient(135deg,#8b5cf6 0%,#1a1a1a 100%);"></div><div style="padding:8px;"><div style="width:60%;height:6px;background:#333;border-radius:2px;margin-bottom:4px;"></div><div style="width:40%;height:5px;background:#222;border-radius:2px;"></div></div></div>
+          <div style="background:#1a1a1a;border-radius:10px;overflow:hidden;"><div style="height:68px;background:linear-gradient(135deg,#06b6d4 0%,#1a1a1a 100%);"></div><div style="padding:8px;"><div style="width:75%;height:6px;background:#333;border-radius:2px;margin-bottom:4px;"></div><div style="width:50%;height:5px;background:#222;border-radius:2px;"></div></div></div>
+        </div>
+      </div>
+    </div>`,
+
+  landing: `
+    <div style="background:#fff;font-family:'Inter',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 28px;border-bottom:1px solid #f0f0f0;">
+        <div style="font-weight:800;font-size:14px;color:#0a0a0a;letter-spacing:-0.5px;">FlowCoach</div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div style="width:36px;height:6px;background:#e8e8e4;border-radius:3px;"></div>
+          <div style="width:36px;height:6px;background:#e8e8e4;border-radius:3px;"></div>
+          <div style="width:72px;height:26px;background:#f97316;border-radius:100px;"></div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(160deg,#fff7ed 0%,#fff 60%);padding:30px 28px 20px;text-align:center;">
+        <div style="display:inline-block;background:#fef3c7;border-radius:100px;padding:4px 14px;margin-bottom:14px;"><div style="width:100px;height:6px;background:#f97316;border-radius:3px;opacity:0.6;"></div></div>
+        <div style="width:70%;height:20px;background:#0a0a0a;border-radius:4px;margin:0 auto 8px;"></div>
+        <div style="width:50%;height:20px;background:#0a0a0a;border-radius:4px;margin:0 auto 14px;opacity:0.7;"></div>
+        <div style="width:60%;height:8px;background:#aaa;border-radius:3px;margin:0 auto 6px;"></div>
+        <div style="width:44%;height:8px;background:#aaa;border-radius:3px;margin:0 auto 20px;"></div>
+        <div style="display:flex;gap:10px;justify-content:center;">
+          <div style="width:120px;height:36px;background:#f97316;border-radius:100px;"></div>
+          <div style="width:90px;height:36px;background:#fff;border-radius:100px;border:1.5px solid #e8e8e4;"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;">
+        <div style="padding:14px;text-align:center;border-right:1px solid #f0f0f0;"><div style="width:40px;height:14px;background:#0a0a0a;border-radius:3px;margin:0 auto 4px;"></div><div style="width:55px;height:6px;background:#ddd;border-radius:2px;margin:0 auto;"></div></div>
+        <div style="padding:14px;text-align:center;border-right:1px solid #f0f0f0;"><div style="width:40px;height:14px;background:#0a0a0a;border-radius:3px;margin:0 auto 4px;"></div><div style="width:55px;height:6px;background:#ddd;border-radius:2px;margin:0 auto;"></div></div>
+        <div style="padding:14px;text-align:center;"><div style="width:40px;height:14px;background:#0a0a0a;border-radius:3px;margin:0 auto 4px;"></div><div style="width:55px;height:6px;background:#ddd;border-radius:2px;margin:0 auto;"></div></div>
+      </div>
+      <div style="padding:18px 28px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:#f9f9f7;border-radius:10px;padding:12px;"><div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;"><div style="width:28px;height:28px;background:#f97316;border-radius:50%;opacity:0.7;flex-shrink:0;"></div><div><div style="width:55px;height:6px;background:#ccc;border-radius:2px;margin-bottom:3px;"></div><div style="width:40px;height:5px;background:#e0e0e0;border-radius:2px;"></div></div></div><div style="width:90%;height:5px;background:#e0e0e0;border-radius:2px;margin-bottom:3px;"></div><div style="width:75%;height:5px;background:#e0e0e0;border-radius:2px;"></div></div>
+        <div style="background:#f9f9f7;border-radius:10px;padding:12px;"><div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;"><div style="width:28px;height:28px;background:#6366f1;border-radius:50%;opacity:0.6;flex-shrink:0;"></div><div><div style="width:50px;height:6px;background:#ccc;border-radius:2px;margin-bottom:3px;"></div><div style="width:38px;height:5px;background:#e0e0e0;border-radius:2px;"></div></div></div><div style="width:85%;height:5px;background:#e0e0e0;border-radius:2px;margin-bottom:3px;"></div><div style="width:65%;height:5px;background:#e0e0e0;border-radius:2px;"></div></div>
+      </div>
+    </div>`,
+
+  shop: `
+    <div style="background:#fafaf8;font-family:'Inter',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 28px;background:#fff;border-bottom:1px solid #eee;">
+        <div style="font-weight:800;font-size:14px;color:#0a0a0a;letter-spacing:-0.5px;">Maison Noor</div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div style="width:30px;height:5px;background:#e0e0e0;border-radius:2px;"></div>
+          <div style="width:30px;height:5px;background:#e0e0e0;border-radius:2px;"></div>
+          <div style="width:30px;height:5px;background:#e0e0e0;border-radius:2px;"></div>
+          <div style="width:28px;height:28px;background:#f0f0ee;border-radius:8px;"></div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(120deg,#1a1a1a 0%,#2d2d2d 100%);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+        <div><div style="width:40px;height:4px;background:#d4af37;border-radius:2px;margin-bottom:10px;"></div><div style="width:140px;height:14px;background:#fff;border-radius:3px;margin-bottom:6px;opacity:0.9;"></div><div style="width:100px;height:8px;background:#888;border-radius:2px;margin-bottom:14px;"></div><div style="width:90px;height:28px;background:#d4af37;border-radius:100px;"></div></div>
+        <div style="display:flex;flex-direction:column;gap:6px;"><div style="width:80px;height:50px;background:#3a3a3a;border-radius:8px;"></div><div style="display:flex;gap:6px;"><div style="width:37px;height:37px;background:#2a2a2a;border-radius:6px;"></div><div style="width:37px;height:37px;background:#333;border-radius:6px;"></div></div></div>
+      </div>
+      <div style="padding:16px 28px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="width:80px;height:8px;background:#0a0a0a;border-radius:3px;"></div><div style="display:flex;gap:6px;"><div style="width:50px;height:22px;background:#fff;border-radius:100px;border:1px solid #e0e0e0;"></div><div style="width:50px;height:22px;background:#0a0a0a;border-radius:100px;"></div></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;">
+          ${['#e8e0d4','#d4e0e8','#e0d4e8','#d4e8d8'].map(c=>`<div style="background:#fff;border-radius:12px;overflow:hidden;border:1px solid #eee;"><div style="height:72px;background:${c};"></div><div style="padding:8px;"><div style="width:75%;height:5px;background:#ddd;border-radius:2px;margin-bottom:4px;"></div><div style="width:50%;height:5px;background:#eee;border-radius:2px;margin-bottom:8px;"></div><div style="display:flex;justify-content:space-between;align-items:center;"><div style="width:38px;height:7px;background:#0a0a0a;border-radius:2px;"></div><div style="width:22px;height:22px;background:#0a0a0a;border-radius:6px;"></div></div></div></div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  cours: `
+    <div style="background:#f8faff;font-family:'Inter',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:#fff;border-bottom:1px solid #e8eaf6;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:26px;height:26px;background:#4f46e5;border-radius:7px;"></div>
+          <div style="font-weight:800;font-size:15px;color:#1e1b4b;letter-spacing:-0.5px;">AcadémiaX</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center;">
+          <div style="width:36px;height:5px;background:#c7d2fe;border-radius:2px;"></div>
+          <div style="width:36px;height:5px;background:#c7d2fe;border-radius:2px;"></div>
+          <div style="width:36px;height:5px;background:#c7d2fe;border-radius:2px;"></div>
+          <div style="width:80px;height:28px;background:#4f46e5;border-radius:100px;"></div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,#eef2ff 0%,#f5f3ff 50%,#f0fdf4 100%);padding:28px 28px 20px;display:flex;gap:24px;align-items:flex-start;">
+        <div style="flex:1;">
+          <div style="display:inline-block;background:#e0e7ff;border-radius:100px;padding:4px 12px;margin-bottom:14px;"><div style="width:80px;height:5px;background:#4f46e5;border-radius:2px;opacity:0.6;"></div></div>
+          <div style="width:90%;height:16px;background:#1e1b4b;border-radius:4px;margin-bottom:8px;opacity:0.9;"></div>
+          <div style="width:70%;height:16px;background:#1e1b4b;border-radius:4px;margin-bottom:14px;opacity:0.5;"></div>
+          <div style="width:80%;height:7px;background:#c7d2fe;border-radius:2px;margin-bottom:5px;"></div>
+          <div style="width:60%;height:7px;background:#c7d2fe;border-radius:2px;margin-bottom:18px;"></div>
+          <div style="display:flex;gap:8px;">
+            <div style="width:120px;height:32px;background:#4f46e5;border-radius:100px;"></div>
+            <div style="width:90px;height:32px;background:#fff;border-radius:100px;border:1.5px solid #c7d2fe;"></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:14px;padding:14px;border:1px solid #e8eaf6;width:130px;flex-shrink:0;">
+          <div style="width:40px;height:40px;background:#eef2ff;border-radius:10px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;"><div style="width:20px;height:20px;background:#4f46e5;border-radius:5px;opacity:0.6;"></div></div>
+          <div style="width:80%;height:6px;background:#1e1b4b;border-radius:2px;margin-bottom:5px;opacity:0.7;"></div>
+          <div style="width:60%;height:5px;background:#c7d2fe;border-radius:2px;margin-bottom:10px;"></div>
+          <div style="width:100%;height:4px;background:#e8eaf6;border-radius:2px;margin-bottom:3px;"><div style="width:70%;height:4px;background:#4f46e5;border-radius:2px;opacity:0.6;"></div></div>
+          <div style="font-size:10px;color:#6366f1;font-weight:600;">70% complété</div>
+        </div>
+      </div>
+      <div style="padding:18px 28px 20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div style="width:80px;height:8px;background:#1e1b4b;border-radius:3px;opacity:0.7;"></div>
+          <div style="display:flex;gap:6px;">
+            <div style="width:55px;height:22px;background:#eef2ff;border-radius:100px;border:1px solid #c7d2fe;"></div>
+            <div style="width:55px;height:22px;background:#4f46e5;border-radius:100px;"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${[['#4f46e5','#eef2ff','Débutant','5 leçons'],['#0891b2','#ecfeff','Intermédiaire','8 leçons'],['#059669','#f0fdf4','Avancé','6 leçons'],['#d97706','#fefce8','Projets pratiques','4 leçons']].map(([c,bg,lvl,nb])=>`
+          <div style="background:#fff;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;border:1px solid #e8eaf6;">
+            <div style="width:36px;height:36px;background:${bg};border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><div style="width:16px;height:16px;background:${c};border-radius:4px;opacity:0.7;"></div></div>
+            <div style="flex:1;">
+              <div style="width:65%;height:6px;background:#1e1b4b;border-radius:2px;margin-bottom:4px;opacity:0.75;"></div>
+              <div style="width:40%;height:5px;background:#c7d2fe;border-radius:2px;"></div>
+            </div>
+            <div style="background:${bg};border-radius:100px;padding:2px 8px;"><div style="width:36px;height:5px;background:${c};border-radius:2px;opacity:0.6;"></div></div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+
+  restaurant: `
+    <div style="background:#120800;font-family:'Inter',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 28px;border-bottom:1px solid #2a1500;">
+        <div style="font-weight:800;font-size:15px;color:#d4af37;letter-spacing:1px;">CHEZ OMAR</div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div style="width:34px;height:5px;background:#2a1500;border-radius:2px;"></div>
+          <div style="width:34px;height:5px;background:#2a1500;border-radius:2px;"></div>
+          <div style="width:80px;height:26px;background:#d4af37;border-radius:100px;"></div>
+        </div>
+      </div>
+      <div style="position:relative;padding:28px 28px 20px;background:linear-gradient(160deg,#1a0a00,#2a1500);">
+        <div style="width:40px;height:3px;background:#d4af37;border-radius:2px;margin-bottom:14px;"></div>
+        <div style="width:80%;height:18px;background:#fff;border-radius:4px;margin-bottom:8px;opacity:0.9;"></div>
+        <div style="width:55%;height:18px;background:#d4af37;border-radius:4px;margin-bottom:14px;opacity:0.7;"></div>
+        <div style="width:70%;height:7px;background:#3a2000;border-radius:2px;margin-bottom:5px;"></div>
+        <div style="width:50%;height:7px;background:#3a2000;border-radius:2px;margin-bottom:18px;"></div>
+        <div style="display:flex;gap:10px;">
+          <div style="width:110px;height:30px;background:#d4af37;border-radius:100px;"></div>
+          <div style="width:90px;height:30px;background:transparent;border-radius:100px;border:1px solid #d4af37;opacity:0.6;"></div>
+        </div>
+      </div>
+      <div style="padding:16px 28px 20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div style="width:70px;height:6px;background:#d4af37;border-radius:3px;opacity:0.6;"></div><div style="width:50px;height:5px;background:#2a1500;border-radius:2px;"></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          ${['#2a1800','#1e1200','#251500'].map((bg,i)=>`
+          <div style="background:${bg};border-radius:10px;overflow:hidden;border:1px solid #3a2000;">
+            <div style="height:56px;background:linear-gradient(135deg,${i===0?'#4a2800,#2a1500':i===1?'#3a2000,#1a0a00':'#402200,#220e00'});"></div>
+            <div style="padding:8px;"><div style="width:70%;height:5px;background:#3a2000;border-radius:2px;margin-bottom:4px;"></div><div style="display:flex;justify-content:space-between;"><div style="width:40px;height:5px;background:#d4af37;border-radius:2px;opacity:0.5;"></div><div style="width:20px;height:5px;background:#2a1500;border-radius:2px;"></div></div></div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`
+};
+
+const modalData = {
+  portfolio:{tag:'Portfolio',title:'Mettez en valeur vos créations',desc:'Un portfolio professionnel pour montrer vos projets, compétences et parcours. Parfait pour les artistes, graphistes, photographes ou développeurs.',features:['Page "À propos" personnalisée','Galerie de projets avec filtres','Section contact directe','Design sombre ou clair selon votre style'],specs:[['Délai','1 à 3 jours'],['Pages','3 à 5 pages'],['Prix','100 DH'],['Mobile','✓ Inclus']]},
+  landing:{tag:'Page de vente',title:'Vendez un produit ou un service',desc:'Une page percutante pour présenter ce que vous vendez et convaincre les visiteurs de passer à l\'action.',features:['Présentation claire de votre offre','Section témoignages clients','Bouton d\'achat bien visible','Design qui inspire confiance'],specs:[['Délai','1 à 2 jours'],['Pages','1 page longue'],['Prix','100 DH'],['Mobile','✓ Inclus']]},
+  shop:{tag:'Boutique',title:'Vendez vos produits en ligne',desc:'Une boutique propre et moderne pour présenter vos produits avec photos, descriptions et prix.',features:['Catalogue de produits avec photos','Prix et descriptions claires','Filtre par catégorie','Page contact ou commande'],specs:[['Délai','1 à 4 jours'],['Pages','3 à 6 pages'],['Prix','100 DH'],['Mobile','✓ Inclus']]},
+  cours:{tag:'École en ligne',title:'Proposez vos cours en ligne',desc:'Un site dédié à vos formations et cours en ligne. Idéal pour les professeurs, coachs, tuteurs ou toute personne qui veut partager ses connaissances.',features:['Présentation de vos modules et cours','Page inscription ou contact','Votre profil enseignant mis en valeur','Design sérieux qui inspire confiance'],specs:[['Délai','1 à 4 jours'],['Pages','4 à 6 pages'],['Prix','100 DH'],['Mobile','✓ Inclus']]},
+  restaurant:{tag:'Restaurant / Café',title:'Présentez votre menu en ligne',desc:'Un site élégant pour votre restaurant, café ou traiteur. Vos clients voient votre menu, vos spécialités et peuvent vous contacter ou réserver directement.',features:['Menu complet avec photos','Section spécialités / plats du jour','Bouton de réservation ou commande','Ambiance visuelle fidèle à votre établissement'],specs:[['Délai','1 à 3 jours'],['Pages','3 à 4 pages'],['Prix','100 DH'],['Mobile','✓ Inclus']]}
+};
+
+function openModal(type) {
+  document.getElementById('modal-site-preview').innerHTML = modalPreviews[type];
+  const m = modalData[type];
+  document.getElementById('modal-tag').textContent = m.tag;
+  document.getElementById('modal-title').textContent = m.title;
+  document.getElementById('modal-desc').textContent = m.desc;
+  document.getElementById('modal-features').innerHTML = m.features.map(f=>'<div class="modal-feat">'+f+'</div>').join('');
+  document.getElementById('modal-specs').innerHTML = m.specs.map(s=>'<div class="modal-spec"><span>'+s[0]+'</span><span>'+s[1]+'</span></div>').join('');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(event) {
+  if(event&&event.target!==document.getElementById('modal'))return;
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ===== TILT SERVICES ===== */
+(function(){
+  const wrap = document.getElementById('services-tilt');
+  const grid = document.getElementById('services-grid');
+  if(!wrap || !grid) return;
+  const MAX = 12;
+
+  wrap.addEventListener('mousemove', e => {
+    const r = wrap.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5; // -0.5 à 0.5
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    const rotY =  x * MAX * 2;
+    const rotX = -y * MAX;
+    grid.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+    grid.style.boxShadow = `${-rotY * 1.2}px ${rotX * 1.2}px 40px rgba(0,0,0,0.10)`;
+  });
+
+  wrap.addEventListener('mouseleave', () => {
+    grid.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    grid.style.boxShadow = 'none';
+    grid.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+    setTimeout(() => grid.style.transition = 'transform 0.12s ease-out, box-shadow 0.12s ease-out', 500);
+  });
+})();
+
+/* ===== MOBILE SCROLL ANIMATIONS ===== */
+if(window.innerWidth <= 768) {
+  const mobObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('mob-visible');
+        mobObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.mob-anim-left,.mob-anim-right,.mob-anim-pop,.mob-anim-flip,.mob-anim-rise,.mob-anim-bounce').forEach(el => {
+    mobObserver.observe(el);
+  });
+}
+
+/* ===== CURSOR GLOW ===== */
+const glow = document.createElement('div');
+glow.className = 'cursor-glow';
+document.body.appendChild(glow);
+let glowX=window.innerWidth/2,glowY=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{glowX=e.clientX;glowY=e.clientY;glow.style.opacity='1';});
+document.addEventListener('mouseleave',()=>glow.style.opacity='0');
+(function animGlow(){glow.style.left=glowX+'px';glow.style.top=glowY+'px';requestAnimationFrame(animGlow);})();
+
+/* ===== HERO PARTICLES ===== */
+(function(){
+  const canvas=document.getElementById('hero-particles');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  const particles=[];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<40;i++)particles.push({
+    x:Math.random()*3000,y:Math.random()*1000,
+    r:Math.random()*2+0.4,
+    vx:(Math.random()-0.5)*0.25,vy:-Math.random()*0.35-0.05,
+    o:Math.random()*0.4+0.08
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      ctx.beginPath();ctx.arc(p.x%W,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(37,99,235,'+p.o+')';ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-5)p.y=H+5;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ===== MAGNETIC BUTTONS — désactivé ===== */
+
+/* ===== SCROLL REVEAL ===== */
+const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target);}
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revealObserver.observe(el));
+
+/* ===== STATS COUNTER ===== */
+const statsObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting)return;
+    entry.target.querySelectorAll('.stat-num').forEach(num=>{
+      if(num.dataset.done)return;num.dataset.done='1';
+      const target=+num.dataset.target;let start=null;
+      function step(ts){if(!start)start=ts;const p=Math.min((ts-start)/1100,1);const e=1-Math.pow(1-p,3);num.textContent=Math.round(target*e);if(p<1)requestAnimationFrame(step);}
+      requestAnimationFrame(step);
+    });
+    statsObserver.unobserve(entry.target);
+  });
+},{threshold:0.4});
+const statsBar=document.querySelector('.stats-bar');
+if(statsBar)statsObserver.observe(statsBar);
+
+/* ===== PRICE COUNTER ===== */
+const priceObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting)return;
+    const el=document.getElementById('price-design');
+    if(el&&!el.dataset.done){el.dataset.done='1';let start=null;
+      function step(ts){if(!start)start=ts;const p=Math.min((ts-start)/900,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(100*e)+' DH';if(p<1)requestAnimationFrame(step);}
+      requestAnimationFrame(step);}
+    priceObserver.unobserve(entry.target);
+  });
+},{threshold:0.3});
+const tarifEl=document.getElementById('tarifs');
+if(tarifEl)priceObserver.observe(tarifEl);
+
+/* ===== SERVICE ICONS BOUNCE ===== */
+document.querySelectorAll('.service-card').forEach(card=>{
+  card.addEventListener('mouseenter',()=>{card.querySelector('.service-icon').style.transform='scale(1.22) rotate(-6deg)';});
+  card.addEventListener('mouseleave',()=>{card.querySelector('.service-icon').style.transform='scale(1) rotate(0deg)';});
+});
+
+/* ===== STEP NUMBERS COLOR ===== */
+document.querySelectorAll('.step').forEach(step=>{
+  step.addEventListener('mouseenter',()=>step.querySelector('.step-num').style.color='var(--accent)');
+  step.addEventListener('mouseleave',()=>step.querySelector('.step-num').style.color='var(--gray2)');
+});
+
+/* ===== GLOBE 3D ===== */
+(function(){
+  const wrap    = document.getElementById('globe-canvas')?.parentElement;
+  const canvas  = document.getElementById('globe-canvas');
+  const tooltip = document.getElementById('globe-tooltip');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const TECHS = [
+    {name:'HTML',      src:'icon-html.png'},
+    {name:'CSS',       src:'icon-css.png'},
+    {name:'JavaScript',src:'icon-javascript.png'},
+    {name:'PHP',       src:'icon-php.png'},
+    {name:'Python',    src:'icon-python.png'},
+    {name:'React',     src:'icon-react.png'},
+    {name:'Node.js',   src:'icon-nodejs.png'},
+    {name:'MySQL',     src:'icon-mysql.png'},
+    {name:'WordPress', src:'icon-wordpress.png'},
+    {name:'Shopify',   src:'icon-shopify.png'},
+    {name:'Webflow',   src:'icon-webflow.png'},
+    {name:'Figma',     src:'icon-figma.png'},
+  ];
+
+  // Pré-charger les images
+  const imgs = {};
+  let loaded = 0;
+  TECHS.forEach(t=>{
+    const img = new Image();
+    img.onload = ()=>{ imgs[t.name]=img; loaded++; };
+    img.onerror= ()=>{ loaded++; };
+    img.src = t.src;
+  });
+
+  // Distribution Fibonacci sur sphère
+  const points = TECHS.map((t,i)=>{
+    const phi   = Math.acos(1 - 2*(i+0.5)/TECHS.length);
+    const theta = Math.PI*(1+Math.sqrt(5))*i;
+    return {
+      tech:t,
+      phi, theta,
+      x3:Math.sin(phi)*Math.cos(theta),
+      y3:Math.cos(phi),
+      z3:Math.sin(phi)*Math.sin(theta),
+    };
+  });
+
+  let W,H,R,cx,cy;
+  let rotY = 0, rotX = 0.15;
+  let velY = 0.004, velX = 0;
+  let drag=false, lastMX=0, lastMY=0;
+  let hoveredPt = null;
+  let raf;
+
+  function resize(){
+    W = canvas.width  = wrap.offsetWidth;
+    H = canvas.height = wrap.offsetHeight;
+    R = Math.min(W,H) * 0.38;
+    cx = W/2; cy = H/2;
+  }
+
+  function project(pt){
+    // Rotation Y
+    const cosY=Math.cos(rotY), sinY=Math.sin(rotY);
+    const x1 = pt.x3*cosY - pt.z3*sinY;
+    const z1 = pt.x3*sinY + pt.z3*cosY;
+    // Rotation X
+    const cosX=Math.cos(rotX), sinX=Math.sin(rotX);
+    const y2 = pt.y3*cosX - z1*sinX;
+    const z2 = pt.y3*sinX + z1*cosX;
+    const scale = (z2+2)/3; // perspective
+    return {
+      sx: cx + x1*R*scale,
+      sy: cy - y2*R*scale,
+      z:  z2,
+      scale,
+      visible: z2 > -0.2
+    };
+  }
+
+  function drawGlobeLines(){
+    // Cercles du globe (méridiens + parallèles)
+    const steps = 60;
+    const lineAngles = [0,Math.PI/3,Math.PI*2/3, Math.PI/2];
+
+    lineAngles.forEach(la=>{
+      ctx.beginPath();
+      let first=true;
+      for(let i=0;i<=steps;i++){
+        const a = (i/steps)*Math.PI*2;
+        const x3=Math.sin(a)*Math.cos(la+rotY);
+        const z3=Math.sin(a)*Math.sin(la+rotY);
+        const y3=Math.cos(a);
+        const cosX=Math.cos(rotX),sinX=Math.sin(rotX);
+        const y2=y3*cosX-z3*sinX;
+        const z2=y3*sinX+z3*cosX;
+        const sc=(z2+2)/3;
+        const sx=cx+x3*R*sc;
+        const sy=cy-y2*R*sc;
+        if(first){ctx.moveTo(sx,sy);first=false;}
+        else ctx.lineTo(sx,sy);
+      }
+      ctx.strokeStyle='rgba(0,0,0,0.05)';ctx.lineWidth=1;ctx.stroke();
+    });
+
+    // Équateur
+    ctx.beginPath();
+    for(let i=0;i<=steps;i++){
+      const a=(i/steps)*Math.PI*2;
+      const x3=Math.cos(a+rotY),z3=Math.sin(a+rotY),y3=0;
+      const cosX=Math.cos(rotX),sinX=Math.sin(rotX);
+      const y2=y3*cosX-z3*sinX,z2=y3*sinX+z3*cosX;
+      const sc=(z2+2)/3;
+      if(i===0)ctx.moveTo(cx+x3*R*sc,cy-y2*R*sc);
+      else ctx.lineTo(cx+x3*R*sc,cy-y2*R*sc);
+    }
+    ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=1;ctx.stroke();
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+
+    // Cercle du globe (ombre douce)
+    const grd=ctx.createRadialGradient(cx-R*0.2,cy-R*0.2,R*0.1,cx,cy,R);
+    grd.addColorStop(0,'rgba(240,242,255,0.6)');
+    grd.addColorStop(1,'rgba(230,235,255,0.2)');
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.fillStyle=grd;ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=1.5;ctx.stroke();
+
+    drawGlobeLines();
+
+    // Projeter et trier par z
+    const projected = points.map(pt=>({...pt, proj:project(pt)}))
+      .sort((a,b)=>a.proj.z-b.proj.z);
+
+    // Connexions entre points proches
+    projected.forEach((pt,i)=>{
+      if(!pt.proj.visible) return;
+      projected.slice(i+1).forEach(pt2=>{
+        if(!pt2.proj.visible) return;
+        const dx=pt.x3-pt2.x3, dy=pt.y3-pt2.y3, dz=pt.z3-pt2.z3;
+        const dist=Math.sqrt(dx*dx+dy*dy+dz*dz);
+        if(dist<1.0){
+          const alpha = (1-dist/1.0)*0.12*pt.proj.scale*pt2.proj.scale;
+          ctx.beginPath();
+          ctx.moveTo(pt.proj.sx,pt.proj.sy);
+          ctx.lineTo(pt2.proj.sx,pt2.proj.sy);
+          ctx.strokeStyle=`rgba(0,0,0,${alpha})`;
+          ctx.lineWidth=0.8;ctx.stroke();
+        }
+      });
+    });
+
+    // Dessiner les noeuds
+    hoveredPt=null;
+    projected.forEach(pt=>{
+      const p=pt.proj;
+      if(!p.visible) return;
+      const s=22*p.scale;
+      const isHov=(pt===_hovered);
+
+      // Ombre
+      if(p.z>0){
+        ctx.beginPath();ctx.arc(p.sx,p.sy,s+2,0,Math.PI*2);
+        ctx.fillStyle=`rgba(0,0,0,${0.06*p.scale})`;ctx.fill();
+      }
+
+      // Fond rond
+      ctx.beginPath();ctx.arc(p.sx,p.sy,s,0,Math.PI*2);
+      if(isHov){
+        ctx.fillStyle='rgba(10,10,10,0.92)';
+        ctx.strokeStyle='rgba(0,0,0,0.9)';
+      } else {
+        const alpha=0.5+0.5*p.z;
+        ctx.fillStyle=`rgba(255,255,255,${0.85+0.15*p.z})`;
+        ctx.strokeStyle=`rgba(0,0,0,${0.1+0.1*p.z})`;
+      }
+      ctx.lineWidth=isHov?1.5:1;ctx.fill();ctx.stroke();
+
+      // Icône
+      const img=imgs[pt.tech.name];
+      if(img){
+        const is=s*1.05;
+        ctx.globalAlpha=p.visible?(0.5+0.5*p.z):0;
+        if(isHov){ctx.globalAlpha=1;ctx.filter='invert(1)';}
+        ctx.drawImage(img,p.sx-is/2,p.sy-is/2,is,is);
+        ctx.globalAlpha=1;ctx.filter='none';
+      }
+
+      // Check hover souris
+      const dx=_mx-p.sx, dy=_my-p.sy;
+      if(Math.sqrt(dx*dx+dy*dy)<s+4 && p.z>-0.1){
+        hoveredPt=pt;
+        hoveredPt._sx=p.sx; hoveredPt._sy=p.sy;
+      }
+    });
+
+    // Tooltip
+    if(hoveredPt && tooltip){
+      tooltip.style.opacity='1';
+      tooltip.style.left=hoveredPt._sx+'px';
+      tooltip.style.top=hoveredPt._sy+'px';
+      tooltip.textContent=hoveredPt.tech.name;
+    } else if(tooltip){
+      tooltip.style.opacity='0';
+    }
+
+    // Auto-rotation
+    if(!drag){
+      rotY+=velY;
+      rotX+=(0.15-rotX)*0.02;
+    }
+
+    raf=requestAnimationFrame(draw);
+  }
+
+  let _hovered=null,_mx=-999,_my=-999;
+
+  // Souris
+  canvas.addEventListener('mousemove',e=>{
+    const r=canvas.getBoundingClientRect();
+    _mx=e.clientX-r.left;_my=e.clientY-r.top;
+    _hovered=hoveredPt;
+    canvas.style.cursor=hoveredPt?'pointer':'grab';
+    if(drag){
+      const dx=e.clientX-lastMX, dy=e.clientY-lastMY;
+      rotY+=dx*0.008; rotX+=dy*0.008;
+      velY=dx*0.006;
+      lastMX=e.clientX;lastMY=e.clientY;
+    }
+  });
+  canvas.addEventListener('mouseleave',()=>{_mx=-999;_my=-999;_hovered=null;tooltip.style.opacity='0';});
+  canvas.addEventListener('mousedown',e=>{drag=true;lastMX=e.clientX;lastMY=e.clientY;});
+  canvas.addEventListener('mouseup',()=>drag=false);
+
+  // Touch
+  let lastTX=0;
+  canvas.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    const t=e.touches[0];
+    const dx=t.clientX-lastTX;
+    rotY+=dx*0.01;velY=dx*0.008;
+    lastTX=t.clientX;
+  },{passive:false});
+  canvas.addEventListener('touchstart',e=>lastTX=e.touches[0].clientX);
+
+  // Start quand visible
+  const obs=new IntersectionObserver(entries=>{
+    if(!entries[0].isIntersecting){cancelAnimationFrame(raf);return;}
+    resize();draw();
+    obs.unobserve(wrap);
+  },{threshold:0.2});
+  obs.observe(wrap);
+  window.addEventListener('resize',()=>{resize();});
+})();
+
+/* ===== NAV SCROLL CLASS ===== */
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+/* ===== HERO BADGE BOUNCE ===== */
+const badge=document.querySelector('.hero-badge');
+if(badge){
+  badge.addEventListener('mouseenter',()=>{badge.style.transform='scale(1.07)';badge.style.transition='transform 0.25s cubic-bezier(0.34,1.56,0.64,1)';});
+  badge.addEventListener('mouseleave',()=>{badge.style.transform='scale(1)';});
+}
+
+/* ===== INTRO ANIMATION ===== */
+(function(){
+  const intro = document.getElementById('intro');
+  const line  = document.getElementById('i-line');
+  const text  = document.getElementById('i-text');
+  const boom  = document.getElementById('i-boom');
+
+  document.body.style.overflow = 'hidden';
+
+  document.fonts.ready.then(()=>{
+    const W = text.offsetWidth;
+    const H = text.offsetHeight;
+
+    // STEP 1 — la ligne grandit
+    setTimeout(()=>{
+      line.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.2,1)';
+      line.style.transform  = 'scaleY(1)';
+    }, 250);
+
+    // STEP 2 — ligne glisse droite + clip ouvre le texte
+    setTimeout(()=>{
+      line.style.transition = 'left 0.55s cubic-bezier(0.65,0,0.35,1)';
+      line.style.left       = W + 'px';
+      text.style.transition = 'clip-path 0.55s cubic-bezier(0.65,0,0.35,1)';
+      text.style.clipPath   = 'inset(0 0% 0 0)';
+    }, 750);
+
+    // STEP 3 — cacher la ligne
+    setTimeout(()=>{
+      line.style.transition = 'opacity 0.2s';
+      line.style.opacity    = '0';
+    }, 1400);
+
+    // STEP 4 — le "A" disparaît, le "." reste
+    setTimeout(()=>{
+      text.innerHTML = '<span id="i-A" style="display:inline-block;transition:transform 0.45s cubic-bezier(0.7,0,1,0.7),opacity 0.35s ease;transform-origin:right center;">A</span><span id="i-dot-char" style="display:inline-block;">.</span>';
+      requestAnimationFrame(()=> requestAnimationFrame(()=>{
+        const a = document.getElementById('i-A');
+        a.style.transform = 'scale(0)';
+        a.style.opacity   = '0';
+      }));
+    }, 2000);
+
+    // STEP 5 — le "." glisse vers le centre
+    setTimeout(()=>{
+      const d = document.getElementById('i-dot-char');
+      if(!d) return;
+      const r  = d.getBoundingClientRect();
+      const dx = window.innerWidth/2  - (r.left + r.width/2);
+      const dy = window.innerHeight/2 - (r.top  + r.height/2);
+      d.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+      d.style.transform  = `translate(${dx}px,${dy}px)`;
+    }, 2550);
+
+    // STEP 6 — le "." disparaît d'abord, puis l'écran blanc fait un fondu
+    setTimeout(()=>{
+      const d = document.getElementById('i-dot-char');
+      if(d){
+        d.style.transition = 'opacity 0.3s ease';
+        d.style.opacity    = '0';
+      }
+    }, 3300);
+
+    setTimeout(()=>{
+      intro.style.transition = 'opacity 0.7s ease';
+      intro.style.opacity    = '0';
+      document.body.style.overflow = '';
+    }, 3650);
+
+    // STEP 7 — fin
+    setTimeout(()=>{
+      intro.classList.add('done');
+    }, 4400);
+  });
+})();
+
+
+
+/* ===== SOUND SYSTEM ===== */
+const SFX=(()=>{
+  let ctx=null;
+  function getCtx(){if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();return ctx;}
+  function play(type){
+    try{
+      const c=getCtx();
+      const g=c.createGain();g.connect(c.destination);
+
+      if(type==='click'){
+        const o=c.createOscillator();o.connect(g);o.type='sine';
+        o.frequency.setValueAtTime(880,c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(440,c.currentTime+0.06);
+        g.gain.setValueAtTime(0.07,c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.08);
+        o.start();o.stop(c.currentTime+0.08);
+      }
+      else if(type==='select'){
+        [0,0.07].forEach((t,i)=>{
+          const o=c.createOscillator(),g2=c.createGain();
+          o.connect(g2);g2.connect(c.destination);o.type='sine';
+          o.frequency.setValueAtTime([600,900][i],c.currentTime+t);
+          o.frequency.exponentialRampToValueAtTime([900,1200][i],c.currentTime+t+0.1);
+          g2.gain.setValueAtTime(0.08,c.currentTime+t);
+          g2.gain.exponentialRampToValueAtTime(0.001,c.currentTime+t+0.12);
+          o.start(c.currentTime+t);o.stop(c.currentTime+t+0.13);
+        });
+      }
+      else if(type==='next'){
+        const o=c.createOscillator();o.connect(g);o.type='sine';
+        o.frequency.setValueAtTime(400,c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(800,c.currentTime+0.14);
+        g.gain.setValueAtTime(0.07,c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.17);
+        o.start();o.stop(c.currentTime+0.17);
+      }
+      else if(type==='back'){
+        const o=c.createOscillator();o.connect(g);o.type='sine';
+        o.frequency.setValueAtTime(700,c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(350,c.currentTime+0.12);
+        g.gain.setValueAtTime(0.06,c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.14);
+        o.start();o.stop(c.currentTime+0.14);
+      }
+      else if(type==='success'){
+        [0,0.1,0.22].forEach((t,i)=>{
+          const o=c.createOscillator(),g2=c.createGain();
+          o.connect(g2);g2.connect(c.destination);o.type='sine';
+          o.frequency.setValueAtTime([523,659,784][i],c.currentTime+t);
+          g2.gain.setValueAtTime(0.1,c.currentTime+t);
+          g2.gain.exponentialRampToValueAtTime(0.001,c.currentTime+t+0.18);
+          o.start(c.currentTime+t);o.stop(c.currentTime+t+0.2);
+        });
+      }
+      else if(type==='hover'){
+        const o=c.createOscillator();o.connect(g);o.type='sine';
+        o.frequency.setValueAtTime(1200,c.currentTime);
+        g.gain.setValueAtTime(0.018,c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.04);
+        o.start();o.stop(c.currentTime+0.04);
+      }
+      else if(type==='palette'){
+        [0,0.05,0.1].forEach((t,i)=>{
+          const o=c.createOscillator(),g2=c.createGain();
+          o.connect(g2);g2.connect(c.destination);o.type='triangle';
+          o.frequency.setValueAtTime([800,1000,1200][i],c.currentTime+t);
+          g2.gain.setValueAtTime(0.04,c.currentTime+t);
+          g2.gain.exponentialRampToValueAtTime(0.001,c.currentTime+t+0.08);
+          o.start(c.currentTime+t);o.stop(c.currentTime+t+0.09);
+        });
+      }
+      else if(type==='tag'){
+        const o=c.createOscillator();o.connect(g);o.type='triangle';
+        o.frequency.setValueAtTime(700,c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(500,c.currentTime+0.07);
+        g.gain.setValueAtTime(0.05,c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.09);
+        o.start();o.stop(c.currentTime+0.09);
+      }
+      else if(type==='upload'){
+        const o=c.createOscillator();o.connect(g);o.type='sine';
+        o.frequency.setValueAtTime(300,c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(900,c.currentTime+0.12);
+        g.gain.setValueAtTime(0.07,c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.14);
+        o.start();o.stop(c.currentTime+0.14);
+      }
+    }catch(e){}
+  }
+  return{play};
+})();
+
+/* Attacher les sons */
+document.querySelectorAll('.btn-primary,.btn-white,.nav-cta,.btn-secondary,.btn-ghost-white').forEach(btn=>{
+  btn.addEventListener('click',()=>SFX.play('click'));
+});
+document.querySelectorAll('.nav-cat').forEach(a=>{
+  a.addEventListener('mouseenter',()=>SFX.play('hover'));
+});
+document.querySelectorAll('.type-card').forEach(card=>{
+  card.addEventListener('click',()=>SFX.play('select'));
+});
+document.querySelectorAll('.btn-next').forEach(btn=>{
+  btn.addEventListener('click',()=>{if(!btn.disabled)SFX.play('next');});
+});
+document.querySelectorAll('.btn-back').forEach(btn=>{
+  btn.addEventListener('click',()=>SFX.play('back'));
+});
+document.querySelectorAll('.palette-chip').forEach(chip=>{
+  chip.addEventListener('click',()=>SFX.play('palette'));
+});
+document.querySelectorAll('.style-tag').forEach(tag=>{
+  tag.addEventListener('click',()=>SFX.play('tag'));
+});
+document.getElementById('upload-zone')?.addEventListener('click',()=>SFX.play('upload'));
+const _origSubmit=window.submitForm;
+window.submitForm=function(){SFX.play('success');if(_origSubmit)_origSubmit();};
+
+/* ===== NAV ACTIVE ON SCROLL ===== */
+const sections=['services','comment','exemples','tarifs','questionnaire','contact-section'];
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-120)cur=id;});
+  document.querySelectorAll('.nav-cat').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
